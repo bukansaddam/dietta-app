@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#1B1A21</color>
+    <color name="white">#FAFAFA</color>
+    <color name="blue">#2F2C3B</color>
+    <color name="orange">#FD664E</color>
+    <color name="grey">#C0C0C0</color>
+
+    <color name="co_pilates">#DFEBBE</color>
+    <color name="co_gym">#F2DB93</color>
+    <color name="co_yoga">#BFA6EF</color>
+    <color name="co_cardio">#EEBCB3</color>
+</resources>

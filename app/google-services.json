@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "18280053972",
+    "firebase_url": "https://dietta-f249c-default-rtdb.firebaseio.com",
+    "project_id": "dietta-f249c",
+    "storage_bucket": "dietta-f249c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18280053972:android:01bd3415c50ed0d24fcf41",
+        "android_client_info": {
+          "package_name": "com.sugadev.dietta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18280053972-rf5d88h245o11hdat9j1fscp267c7hqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt9CoTyVjDMHr_LEpKcZugqimUf4pIPXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18280053972-rf5d88h245o11hdat9j1fscp267c7hqr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
