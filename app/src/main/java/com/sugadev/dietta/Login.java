@@ -32,7 +32,6 @@ public class Login extends AppCompatActivity {
     TextView tvRegister;
     Button btnLogin;
     EditText etEmail, etPassword;
-    String email,password;
     FirebaseAuth mAuth;
 
     @Override
@@ -57,9 +56,6 @@ public class Login extends AppCompatActivity {
         etPassword = findViewById(R.id.etLogPassword);
         mAuth = FirebaseAuth.getInstance();
 
-        email = etEmail.getText().toString();
-        password = etPassword.getText().toString();
-
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,9 +68,9 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (email.equals("") || password.equals("")){
-                    Toast.makeText(Login.this, "Masukkan data dengan lengkap", Toast.LENGTH_SHORT).show();
-                } else {
+                final String email = etEmail.getText().toString();
+                final String password = etPassword.getText().toString();
+                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -82,9 +78,9 @@ public class Login extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
                                         Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(dirHome);
-                                        finish();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -93,6 +89,8 @@ public class Login extends AppCompatActivity {
                                     }
                                 }
                             });
+                } else {
+                    Toast.makeText(Login.this, "Masukkan data dengan lengkap", Toast.LENGTH_SHORT).show();
                 }
             }
         });
