@@ -24,8 +24,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sugadev.dietta.Admin.Dashboard;
+import com.sugadev.dietta.User.Homepage;
+import com.sugadev.dietta.User.User;
 
 public class Login extends AppCompatActivity {
 
@@ -33,6 +35,9 @@ public class Login extends AppCompatActivity {
     Button btnLogin;
     EditText etEmail, etPassword;
     FirebaseAuth mAuth;
+    DatabaseReference mReference;
+    FirebaseDatabase mDatabase;
+
 
     @Override
     public void onStart() {
@@ -40,7 +45,7 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
+            Intent dirHome = new Intent(getApplicationContext(), Homepage.class);
             startActivity(dirHome);
         }
     }
@@ -68,6 +73,7 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final String email = etEmail.getText().toString();
                 final String password = etPassword.getText().toString();
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
@@ -79,8 +85,30 @@ public class Login extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(dirHome);
+
+                                        mDatabase = FirebaseDatabase.getInstance();
+                                        mReference = mDatabase.getReference().child("users").child(user.getUid());
+
+                                        mReference.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                User user = snapshot.getValue(User.class);
+                                                if (user.getIsAdmin() == true){
+                                                    Intent dirDashboard = new Intent(getApplicationContext(), Dashboard.class);
+                                                    startActivity(dirDashboard);
+                                                    Log.i(TAG, "admin: saya admin");
+                                                }else {
+                                                    Intent dirHome = new Intent(getApplicationContext(), Homepage.class);
+                                                    startActivity(dirHome);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                Log.d(TAG, "the read failed: " + error.getCode());
+                                            }
+                                        });
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());

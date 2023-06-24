@@ -1,4 +1,4 @@
-package com.sugadev.dietta;
+package com.sugadev.dietta.User;
 
 import static android.content.ContentValues.TAG;
 
@@ -9,22 +9,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sugadev.dietta.Login;
+import com.sugadev.dietta.R;
 
-public class MainActivity extends AppCompatActivity {
+public class Homepage extends AppCompatActivity {
 
     TextView name;
     ImageView btnLogout;

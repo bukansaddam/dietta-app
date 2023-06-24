@@ -1,13 +1,15 @@
-package com.sugadev.dietta;
+package com.sugadev.dietta.User;
 
 public class User {
 
     String name, email, password;
+    boolean isAdmin;
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, boolean isAdmin) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     public User() {
@@ -36,4 +38,14 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 }
+
+

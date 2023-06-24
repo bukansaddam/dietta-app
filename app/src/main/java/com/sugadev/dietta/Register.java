@@ -17,12 +17,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sugadev.dietta.User.User;
 
 public class Register extends AppCompatActivity {
 
@@ -59,6 +59,7 @@ public class Register extends AppCompatActivity {
                 email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
                 name = etName.getText().toString();
+                boolean isAdmin = false;
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(name)){
                     Toast.makeText(Register.this, "Masukkan Data Dengan Lengkap", Toast.LENGTH_SHORT).show();
@@ -72,7 +73,7 @@ public class Register extends AppCompatActivity {
                                         Log.d(TAG, "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
 
-                                        User userDetails = new User(name, email, password);
+                                        User userDetails = new User(name, email, password, isAdmin);
 
                                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
                                         reference.child(user.getUid()).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
