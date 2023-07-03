@@ -16,7 +16,7 @@
         android:onClick="tambahMakanan"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvVideo"
+        android:id="@+id/rvMakanan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"/>

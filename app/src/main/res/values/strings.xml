@@ -2,4 +2,20 @@
     <string name="app_name">Dietta</string>
     <string name="halo">Halo,</string>
     <string name="ph_nama">nama</string>
+
+    <string-array name="judul_makanan">
+        <item>Kare Ayam</item>
+        <item>Kare Ayam</item>
+        <item>Kare Ayam</item>
+        <item>Kare Ayam</item>
+        <item>Kare Ayam</item>
+    </string-array>
+
+    <string-array name="deskripsi_makanan">
+        <item>Ini masakan ibu paling enak</item>
+        <item>Ini masakan ibu paling enak</item>
+        <item>Ini masakan ibu paling enak</item>
+        <item>Ini masakan ibu paling enak</item>
+        <item>Ini masakan ibu paling enak</item>
+    </string-array>
 </resources>

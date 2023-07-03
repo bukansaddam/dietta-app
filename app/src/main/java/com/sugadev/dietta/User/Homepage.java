@@ -4,6 +4,9 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,17 +22,27 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sugadev.dietta.Admin.MakananAdapter;
+import com.sugadev.dietta.Admin.MakananAdapterHome;
 import com.sugadev.dietta.Login;
 import com.sugadev.dietta.R;
 
 public class Homepage extends AppCompatActivity {
 
+    int image[] = {
+            R.drawable.kare,
+            R.drawable.kare,
+            R.drawable.kare,
+            R.drawable.kare,
+            R.drawable.kare
+    };
     TextView name;
     ImageView btnLogout;
     FirebaseAuth mAuth;
     DatabaseReference mReference;
     FirebaseUser mUser;
     FirebaseDatabase mDatabase;
+    RecyclerView rvMakanan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +51,16 @@ public class Homepage extends AppCompatActivity {
 
         name = findViewById(R.id.phNama);
         btnLogout = findViewById(R.id.btnLogout);
+        rvMakanan = findViewById(R.id.rvMakananHome);
+
+        String[] jdlMakanan = getResources().getStringArray(R.array.judul_makanan);
+        String[] descMakanan = getResources().getStringArray(R.array.deskripsi_makanan);
+
+        MakananAdapterHome makananAdapterHome = new MakananAdapterHome(jdlMakanan, descMakanan, image, this);
+        rvMakanan.setAdapter(makananAdapterHome);
+        rvMakanan.setLayoutManager(new GridLayoutManager(this,2));
+
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();

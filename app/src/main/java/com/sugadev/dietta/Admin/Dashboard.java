@@ -41,6 +41,8 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void kelolaMakanan(View view) {
+        Intent intent = new Intent(getApplicationContext(), KelMakanan.class);
+        startActivity(intent);
     }
 
     public void kelolaVideo(View view) {
