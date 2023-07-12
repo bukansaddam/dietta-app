@@ -8,13 +8,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +31,8 @@ import com.sugadev.dietta.Admin.MakananAdapterHome;
 import com.sugadev.dietta.Login;
 import com.sugadev.dietta.R;
 
-public class Homepage extends AppCompatActivity {
+
+public class Homepage extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     int image[] = {
             R.drawable.kare,
@@ -44,10 +49,24 @@ public class Homepage extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     RecyclerView rvMakanan;
 
+    BottomNavigationView bottomNavigationView;
+    CatatanFragment catatanFragment = new CatatanFragment();
+    TrackFragment trackFragment = new TrackFragment();
+    HistoryFragment historyFragment = new HistoryFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
+
+    HomepageFragment homepageFragment = new HomepageFragment();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(this);
+
 
         name = findViewById(R.id.phNama);
         btnLogout = findViewById(R.id.btnLogout);
@@ -58,7 +77,7 @@ public class Homepage extends AppCompatActivity {
 
         MakananAdapterHome makananAdapterHome = new MakananAdapterHome(jdlMakanan, descMakanan, image, this);
         rvMakanan.setAdapter(makananAdapterHome);
-        rvMakanan.setLayoutManager(new GridLayoutManager(this,2));
+        rvMakanan.setLayoutManager(new GridLayoutManager(this, 2));
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -90,6 +109,27 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
+    }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.catatan) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, catatanFragment).commit();
+            return true;
+        } else if (item.getItemId() == R.id.profile) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, profileFragment).commit();
+            return true;
+        } else if (item.getItemId() == R.id.tracker) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, trackFragment).commit();
+            return true;
+        } else if (item.getItemId() == R.id.history) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, historyFragment).commit();
+            return true;
+        } else if (item.getItemId() == R.id.home) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,homepageFragment).commit();
+            return true;
+        }
+        return false;
     }
 }
