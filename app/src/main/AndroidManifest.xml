@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Dietta"
         tools:targetApi="31">
         <activity
+            android:name=".User.User$VideoUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".Admin.FormAddMakanan"
             android:exported="false" />
         <activity

@@ -1,5 +1,11 @@
 package com.sugadev.dietta.User;
 
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.sugadev.dietta.R;
+
 public class User {
 
     String name, email, password;
@@ -45,6 +51,15 @@ public class User {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public static class VideoUserActivity extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_video_user);
+        }
     }
 }
 
