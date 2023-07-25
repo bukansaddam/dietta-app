@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+            android:id="@+id/home"
+            android:title="Home"
+            android:icon="@drawable/ic_home"/>
+    <item
+            android:id="@+id/catatan"
+            android:title="Catatan"
+            android:icon="@drawable/ic_catatan"/>
+    <item
+            android:id="@+id/tracker"
+            android:title="Track"
+            android:icon="@drawable/tracks"/>
+    <item
+            android:id="@+id/history"
+            android:title="History"
+            android:icon="@drawable/ic_history"/>
+    <item
+            android:id="@+id/profile"
+            android:title="Profile"
+            android:icon="@drawable/ic_profil"/>
+
+
+
+</menu>
