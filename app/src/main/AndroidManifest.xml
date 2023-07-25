@@ -16,6 +16,24 @@
         android:theme="@style/Theme.Dietta"
         tools:targetApi="31">
         <activity
+            android:name=".User.Profile"
+            android:exported="false" />
+        <activity
+            android:name=".User.Track"
+            android:exported="false" />
+        <activity
+            android:name=".User.History"
+            android:exported="false" />
+        <activity
+            android:name=".User.Catatan"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.Yoga"
+            android:exported="false" />
+        <activity
             android:name=".User.User$VideoUserActivity"
             android:exported="false" />
         <activity

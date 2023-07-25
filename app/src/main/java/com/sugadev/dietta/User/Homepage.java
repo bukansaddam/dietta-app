@@ -4,16 +4,17 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,13 +27,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sugadev.dietta.Admin.MakananAdapter;
 import com.sugadev.dietta.Admin.MakananAdapterHome;
 import com.sugadev.dietta.Login;
 import com.sugadev.dietta.R;
 
 
-public class Homepage extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+public class Homepage extends Fragment {
 
     int image[] = {
             R.drawable.kare,
@@ -49,35 +49,21 @@ public class Homepage extends AppCompatActivity implements NavigationBarView.OnI
     FirebaseDatabase mDatabase;
     RecyclerView rvMakanan;
 
-    BottomNavigationView bottomNavigationView;
-    CatatanFragment catatanFragment = new CatatanFragment();
-    TrackFragment trackFragment = new TrackFragment();
-    HistoryFragment historyFragment = new HistoryFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
-
-    HomepageFragment homepageFragment = new HomepageFragment();
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        View view = inflater.inflate(R.layout.activity_homepage, container, false);
 
-
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnItemSelectedListener(this);
-
-
-        name = findViewById(R.id.phNama);
-        btnLogout = findViewById(R.id.btnLogout);
-        rvMakanan = findViewById(R.id.rvMakananHome);
+        name = view.findViewById(R.id.phNama);
+        btnLogout = view.findViewById(R.id.btnLogout);
+        rvMakanan = view.findViewById(R.id.rvMakananHome);
 
         String[] jdlMakanan = getResources().getStringArray(R.array.judul_makanan);
         String[] descMakanan = getResources().getStringArray(R.array.deskripsi_makanan);
 
-        MakananAdapterHome makananAdapterHome = new MakananAdapterHome(jdlMakanan, descMakanan, image, this);
+        MakananAdapterHome makananAdapterHome = new MakananAdapterHome(jdlMakanan, descMakanan, image, getContext());
         rvMakanan.setAdapter(makananAdapterHome);
-        rvMakanan.setLayoutManager(new GridLayoutManager(this, 2));
+        rvMakanan.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -103,33 +89,11 @@ public class Homepage extends AppCompatActivity implements NavigationBarView.OnI
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                Intent dirLogin = new Intent(getApplicationContext(), Login.class);
+                Intent dirLogin = new Intent(getContext(), Login.class);
                 startActivity(dirLogin);
-                finish();
             }
         });
 
-    }
-
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.catatan) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, catatanFragment).commit();
-            return true;
-        } else if (item.getItemId() == R.id.profile) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, profileFragment).commit();
-            return true;
-        } else if (item.getItemId() == R.id.tracker) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, trackFragment).commit();
-            return true;
-        } else if (item.getItemId() == R.id.history) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, historyFragment).commit();
-            return true;
-        } else if (item.getItemId() == R.id.home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,homepageFragment).commit();
-            return true;
-        }
-        return false;
+        return view;
     }
 }
