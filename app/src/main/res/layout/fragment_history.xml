@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    tools:context=".User.HistoryFragment">
+
+    <View
+        android:id="@+id/group_125"
+        android:layout_width="15dp"
+        android:layout_height="23dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/lebihkecil" />
+
+    <TextView
+        android:id="@+id/profile"
+        android:layout_width="69dp"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="47dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:text="history"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:gravity="top"
+        android:alpha="0.88"
+        />
+
+    <View
+        android:id="@+id/whatsapp_im"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="360dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/profile" />
+
+    <View
+        android:id="@+id/rectangle_1"
+        android:layout_width="match_parent"
+        android:layout_height="712dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/bg_home"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="16dp"
+        />
+
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="98dp"
+        android:gravity="top"
+        android:text="HISTORY"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/kegiatan_an"
+        android:layout_width="123dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="128dp"
+        android:text="Kegiatan anda"
+        android:textSize="16sp"
+        android:gravity="top"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvhistory"
+        android:layout_width="360dp"
+        android:layout_height="560dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="168dp" />
+
+
+
+
+
+</FrameLayout>
