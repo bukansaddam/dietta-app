@@ -1,4 +1,4 @@
-package com.sugadev.dietta.User;
+package com.sugadev.dietta.User.Video.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,16 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sugadev.dietta.Admin.MakananAdapter;
 import com.sugadev.dietta.R;
 
-public class YogaAdapter extends RecyclerView.Adapter<YogaAdapter.YogaHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> {
 
     String[] data1, data2;
     int[] images;
     Context context;
 
-    public YogaAdapter(String[] data1, String[] data2, int[] images, Context context) {
+    public VideoAdapter(String[] data1, String[] data2, int[] images, Context context) {
         this.data1 = data1;
         this.data2 = data2;
         this.images = images;
@@ -31,7 +30,7 @@ public class YogaAdapter extends RecyclerView.Adapter<YogaAdapter.YogaHolder> {
     public YogaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.model_video,parent,false);
-        return new YogaAdapter.YogaHolder(view);
+        return new YogaHolder(view);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class YogaAdapter extends RecyclerView.Adapter<YogaAdapter.YogaHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return images.length;
     }
 
 

@@ -3,23 +3,21 @@ package com.sugadev.dietta.User;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.sugadev.dietta.Admin.MakananAdapterHome;
 import com.sugadev.dietta.Login;
 import com.sugadev.dietta.R;
+import com.sugadev.dietta.User.Video.Cardio;
+import com.sugadev.dietta.User.Video.Gym;
+import com.sugadev.dietta.User.Video.Pilates;
+import com.sugadev.dietta.User.Video.Yoga;
 
 
 public class Homepage extends Fragment {
@@ -49,6 +51,8 @@ public class Homepage extends Fragment {
     FirebaseDatabase mDatabase;
     RecyclerView rvMakanan;
 
+    LinearLayout gym, yoga, cardio, pilates;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,15 +61,64 @@ public class Homepage extends Fragment {
         name = view.findViewById(R.id.phNama);
         btnLogout = view.findViewById(R.id.btnLogout);
         rvMakanan = view.findViewById(R.id.rvMakananHome);
+        yoga = view.findViewById(R.id.btnYoga);
+        gym = view.findViewById(R.id.btnGym);
+        pilates = view.findViewById(R.id.btnPilates);
+        cardio = view.findViewById(R.id.btnCardio);
 
         String[] jdlMakanan = getResources().getStringArray(R.array.judul_makanan);
         String[] descMakanan = getResources().getStringArray(R.array.deskripsi_makanan);
 
-        MakananAdapterHome makananAdapterHome = new MakananAdapterHome(jdlMakanan, descMakanan, image, getContext());
+        dataMakanan(jdlMakanan,descMakanan, image, getContext());
+
+        btnVideo();
+
+        firebaseGetUser();
+
+        return view;
+    }
+
+    private void btnVideo(){
+        yoga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dirYoga = new Intent(getContext(), Yoga.class);
+                startActivity(dirYoga);
+            }
+        });
+
+        cardio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dirCardio = new Intent(getContext(), Cardio.class);
+                startActivity(dirCardio);
+            }
+        });
+
+        gym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dirGym = new Intent(getContext(), Gym.class);
+                startActivity(dirGym);
+            }
+        });
+
+        pilates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dirPilates = new Intent(getContext(), Pilates.class);
+                startActivity(dirPilates);
+            }
+        });
+    }
+
+    private void dataMakanan(String[] judul, String[] deskripsi, int[] image, Context context){
+        MakananAdapterHome makananAdapterHome = new MakananAdapterHome(judul, deskripsi, image, context);
         rvMakanan.setAdapter(makananAdapterHome);
         rvMakanan.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    }
 
-
+    private void firebaseGetUser(){
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
@@ -93,7 +146,6 @@ public class Homepage extends Fragment {
                 startActivity(dirLogin);
             }
         });
-
-        return view;
     }
+
 }

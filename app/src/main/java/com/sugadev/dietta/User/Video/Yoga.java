@@ -1,13 +1,14 @@
-package com.sugadev.dietta.User;
+package com.sugadev.dietta.User.Video;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.sugadev.dietta.Admin.MakananAdapter;
 import com.sugadev.dietta.R;
+import com.sugadev.dietta.User.Video.Adapter.VideoAdapter;
 
 public class Yoga extends AppCompatActivity {
 
@@ -26,15 +27,31 @@ public class Yoga extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yoga);
 
-        rvVideo = findViewById(R.id.rvVideoOlahraga);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Yoga");
+
+        rvVideo = findViewById(R.id.rvVideoYoga);
+
+        dataVideo();
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    private void dataVideo(){
         String[] jdlMakanan = getResources().getStringArray(R.array.judul_makanan);
         String[] descMakanan = getResources().getStringArray(R.array.deskripsi_makanan);
 
-        YogaAdapter yogaAdapter = new YogaAdapter(jdlMakanan, descMakanan, image, this);
-        rvVideo.setAdapter(yogaAdapter);
+        VideoAdapter videoAdapter = new VideoAdapter(jdlMakanan, descMakanan, image, this);
+        rvVideo.setAdapter(videoAdapter);
         rvVideo.setLayoutManager(new LinearLayoutManager(this));
-
-
     }
 }

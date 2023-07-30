@@ -210,6 +210,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/btnPilates"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -239,6 +240,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnGym"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -268,6 +270,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnYoga"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -297,6 +300,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnCardio"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

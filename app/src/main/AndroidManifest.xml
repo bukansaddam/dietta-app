@@ -16,6 +16,15 @@
         android:theme="@style/Theme.Dietta"
         tools:targetApi="31">
         <activity
+            android:name=".User.Video.Cardio"
+            android:exported="false" />
+        <activity
+            android:name=".User.Video.Pilates"
+            android:exported="false" />
+        <activity
+            android:name=".User.Video.Gym"
+            android:exported="false" />
+        <activity
             android:name=".User.Profile"
             android:exported="false" />
         <activity
@@ -31,7 +40,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".User.Yoga"
+            android:name=".User.Video.Yoga"
             android:exported="false" />
         <activity
             android:name=".User.User$VideoUserActivity"

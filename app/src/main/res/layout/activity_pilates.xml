@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".User.Video.Yoga">
+    tools:context=".User.Video.Pilates">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,7 +14,7 @@
         android:background="@color/blue" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvVideoYoga"
+        android:id="@+id/rvVideoPilates"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
