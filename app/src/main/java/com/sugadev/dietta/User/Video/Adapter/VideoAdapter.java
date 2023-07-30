@@ -1,6 +1,7 @@
 package com.sugadev.dietta.User.Video.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.sugadev.dietta.R;
 import com.sugadev.dietta.User.Video.Model.Video;
+import com.sugadev.dietta.User.Video.VideoDetail;
 
 import java.util.List;
 
@@ -34,9 +37,21 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull YogaHolder holder, int position) {
+        int p = position;
         holder.judul.setText(data.get(position).getTitle());
         holder.desc.setText(data.get(position).getDescription());
         Picasso.get().load(data.get(position).getThumbnail()).into(holder.thumbnail);
+        holder.cardVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dirDetail = new Intent(v.getContext(), VideoDetail.class);
+                dirDetail.putExtra("video", data.get(p).getUrl());
+                dirDetail.putExtra("title", data.get(p).getTitle());
+                dirDetail.putExtra("desc", data.get(p).getDescription());
+                dirDetail.putExtra("category", data.get(p).getCategory());
+                v.getContext().startActivity(dirDetail);
+            }
+        });
     }
 
     @Override
@@ -49,6 +64,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> 
 
         TextView judul,desc;
         ImageView thumbnail;
+        CardView cardVideo;
 
         public YogaHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +72,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> 
             thumbnail = itemView.findViewById(R.id.thmblVideo);
             judul = itemView.findViewById(R.id.tvJudulVideo);
             desc = itemView.findViewById(R.id.tvDeskripsiVideo);
+            cardVideo = itemView.findViewById(R.id.cardVideo);
         }
     }
 }

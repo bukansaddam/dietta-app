@@ -6,7 +6,11 @@ import com.sugadev.dietta.User.Video.Model.Video;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface JsonPlaceHolderAPI {
 
@@ -24,4 +28,16 @@ public interface JsonPlaceHolderAPI {
 
     @GET("video/category/pilates")
     Call<List<Video>> getPilates();
+
+    @FormUrlEncoded
+    @POST("culinary/add")
+    Call<Culinary> addCulinary(
+            @Field("fooddname") String title,
+            @Field("deskripsi") String desc,
+            @Field("imgurl") String url,
+            @Field("kalori") int kalori,
+            @Field("lemak") int lemak,
+            @Field("karbohidrat") int karbo,
+            @Field("protein") int protein
+    );
 }

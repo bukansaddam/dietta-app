@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:id="@+id/cardHome"
+    android:id="@+id/cardVideo"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="Deskripsi"
                 android:textColor="@color/black"
+                android:maxLines="3"
                 android:layout_marginTop="5dp"/>
 
         </LinearLayout>
