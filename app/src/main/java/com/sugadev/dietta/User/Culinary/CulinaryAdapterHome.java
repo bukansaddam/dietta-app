@@ -1,6 +1,5 @@
-package com.sugadev.dietta.Admin;
+package com.sugadev.dietta.User.Culinary;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.sugadev.dietta.Model.Culinary;
 import com.sugadev.dietta.R;
 
 import java.util.List;
 
-public class MakananAdapterHome extends RecyclerView.Adapter<MakananAdapterHome.MakananHolder> {
+public class CulinaryAdapterHome extends RecyclerView.Adapter<CulinaryAdapterHome.MakananHolder> {
 
     List<Culinary> data;
 
-    public MakananAdapterHome(List<Culinary> data) {
+    public CulinaryAdapterHome(List<Culinary> data) {
         this.data = data;
     }
 

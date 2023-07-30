@@ -1,4 +1,4 @@
-package com.sugadev.dietta.Model;
+package com.sugadev.dietta.User.Culinary;
 
 import com.google.gson.annotations.SerializedName;
 

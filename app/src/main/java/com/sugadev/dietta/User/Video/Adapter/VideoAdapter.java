@@ -10,40 +10,38 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.sugadev.dietta.R;
+import com.sugadev.dietta.User.Video.Model.Video;
+
+import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> {
 
-    String[] data1, data2;
-    int[] images;
-    Context context;
+    List<Video> data;
 
-    public VideoAdapter(String[] data1, String[] data2, int[] images, Context context) {
-        this.data1 = data1;
-        this.data2 = data2;
-        this.images = images;
-        this.context = context;
+    public VideoAdapter(List<Video> data) {
+        this.data = data;
     }
 
     @NonNull
     @Override
     public YogaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.model_video,parent,false);
         return new YogaHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull YogaHolder holder, int position) {
-        int p = position;
-        holder.judul.setText(data1[position]);
-        holder.desc.setText(data2[position]);
-        holder.thumbnail.setImageResource(images[position]);
+        holder.judul.setText(data.get(position).getTitle());
+        holder.desc.setText(data.get(position).getDescription());
+        Picasso.get().load(data.get(position).getThumbnail()).into(holder.thumbnail);
     }
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return data.size();
     }
 
 

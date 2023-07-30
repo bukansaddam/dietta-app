@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,10 +25,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sugadev.dietta.Admin.MakananAdapterHome;
+import com.sugadev.dietta.User.Culinary.CulinaryAdapterHome;
 import com.sugadev.dietta.JsonPlaceHolderAPI;
 import com.sugadev.dietta.Login;
-import com.sugadev.dietta.Model.Culinary;
+import com.sugadev.dietta.User.Culinary.Culinary;
 import com.sugadev.dietta.R;
 import com.sugadev.dietta.User.Video.Cardio;
 import com.sugadev.dietta.User.Video.Gym;
@@ -115,7 +114,7 @@ public class Homepage extends Fragment {
 
     private void dataMakanan(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.31.39.4:8787/culinary/")
+                .baseUrl("http://103.31.39.4:8787/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -134,8 +133,8 @@ public class Homepage extends Fragment {
 
                 List<Culinary> culinaries = response.body();
 
-                MakananAdapterHome makananAdapterHome = new MakananAdapterHome(culinaries);
-                rvMakanan.setAdapter(makananAdapterHome);
+                CulinaryAdapterHome culinaryAdapterHome = new CulinaryAdapterHome(culinaries);
+                rvMakanan.setAdapter(culinaryAdapterHome);
                 rvMakanan.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
             }

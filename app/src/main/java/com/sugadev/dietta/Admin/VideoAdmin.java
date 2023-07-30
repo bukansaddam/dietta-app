@@ -1,16 +1,16 @@
 package com.sugadev.dietta.Admin;
 
-public class Video {
+public class VideoAdmin {
 
     String url, title, deskripsi;
 
-    public Video(String url, String title, String deskripsi) {
+    public VideoAdmin(String url, String title, String deskripsi) {
         this.url = url;
         this.title = title;
         this.deskripsi = deskripsi;
     }
 
-    public Video() {
+    public VideoAdmin() {
     }
 
     public String getUrl() {

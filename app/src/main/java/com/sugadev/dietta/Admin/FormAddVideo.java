@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.sugadev.dietta.Login;
 import com.sugadev.dietta.R;
 
 public class FormAddVideo extends AppCompatActivity {
@@ -42,10 +41,10 @@ public class FormAddVideo extends AppCompatActivity {
         if (TextUtils.isEmpty(url) || TextUtils.isEmpty(title) || TextUtils.isEmpty(desc)){
             Toast.makeText(this, "Masukkan data dengan lengkap", Toast.LENGTH_SHORT).show();
         }else {
-            Video video = new Video(url, title, desc);
+            VideoAdmin videoAdmin = new VideoAdmin(url, title, desc);
 
             reference = FirebaseDatabase.getInstance().getReference("video");
-            reference.child(video.getTitle()).setValue(video).addOnCompleteListener(new OnCompleteListener<Void>() {
+            reference.child(videoAdmin.getTitle()).setValue(videoAdmin).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Intent intent = new Intent(getApplicationContext(), KelVideo.class);
