@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,23 +27,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sugadev.dietta.Admin.MakananAdapterHome;
+import com.sugadev.dietta.JsonPlaceHolderAPI;
 import com.sugadev.dietta.Login;
+import com.sugadev.dietta.Model.Culinary;
 import com.sugadev.dietta.R;
 import com.sugadev.dietta.User.Video.Cardio;
 import com.sugadev.dietta.User.Video.Gym;
 import com.sugadev.dietta.User.Video.Pilates;
 import com.sugadev.dietta.User.Video.Yoga;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class Homepage extends Fragment {
 
-    int image[] = {
-            R.drawable.kare,
-            R.drawable.kare,
-            R.drawable.kare,
-            R.drawable.kare,
-            R.drawable.kare
-    };
     TextView name;
     ImageView btnLogout;
     FirebaseAuth mAuth;
@@ -66,10 +70,7 @@ public class Homepage extends Fragment {
         pilates = view.findViewById(R.id.btnPilates);
         cardio = view.findViewById(R.id.btnCardio);
 
-        String[] jdlMakanan = getResources().getStringArray(R.array.judul_makanan);
-        String[] descMakanan = getResources().getStringArray(R.array.deskripsi_makanan);
-
-        dataMakanan(jdlMakanan,descMakanan, image, getContext());
+        dataMakanan();
 
         btnVideo();
 
@@ -112,10 +113,39 @@ public class Homepage extends Fragment {
         });
     }
 
-    private void dataMakanan(String[] judul, String[] deskripsi, int[] image, Context context){
-        MakananAdapterHome makananAdapterHome = new MakananAdapterHome(judul, deskripsi, image, context);
-        rvMakanan.setAdapter(makananAdapterHome);
-        rvMakanan.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    private void dataMakanan(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://103.31.39.4:8787/culinary/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
+
+        Call<List<Culinary>> call = jsonPlaceHolderAPI.getCulinary();
+
+        call.enqueue(new Callback<List<Culinary>>() {
+            @Override
+            public void onResponse(Call<List<Culinary>> call, Response<List<Culinary>> response) {
+
+                if (!response.isSuccessful()){
+                    Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<Culinary> culinaries = response.body();
+
+                MakananAdapterHome makananAdapterHome = new MakananAdapterHome(culinaries);
+                rvMakanan.setAdapter(makananAdapterHome);
+                rvMakanan.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Culinary>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+
     }
 
     private void firebaseGetUser(){

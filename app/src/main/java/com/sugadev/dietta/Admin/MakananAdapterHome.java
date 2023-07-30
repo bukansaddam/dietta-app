@@ -10,35 +10,33 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+import com.sugadev.dietta.Model.Culinary;
 import com.sugadev.dietta.R;
+
+import java.util.List;
 
 public class MakananAdapterHome extends RecyclerView.Adapter<MakananAdapterHome.MakananHolder> {
 
-    String[] data1, data2;
-    int[] images;
-    Context context;
+    List<Culinary> data;
 
-    public MakananAdapterHome(String[] judul, String[] deskripsi, int[] images, Context context) {
-        this.data1 = judul;
-        this.data2 = deskripsi;
-        this.images = images;
-        this.context = context;
+    public MakananAdapterHome(List<Culinary> data) {
+        this.data = data;
     }
 
     @NonNull
     @Override
     public MakananHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.model_makanan_homepage,parent,false);
         return new MakananHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MakananHolder holder, int position) {
-        int p = position;
-        holder.tvTitle.setText(data1[position]);
-        holder.tvDesc.setText(data2[position]);
-        holder.imgMakanan.setImageResource(images[position]);
+        holder.tvTitle.setText(data.get(position).getTitle());
+        holder.tvDesc.setText(data.get(position).getDeskripsi());
+        Picasso.get().load(data.get(position).getThumbnail()).into(holder.imgMakanan);
 //        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -56,7 +54,7 @@ public class MakananAdapterHome extends RecyclerView.Adapter<MakananAdapterHome.
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return data.size();
     }
 
 
