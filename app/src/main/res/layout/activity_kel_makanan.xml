@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".Admin.KelMakanan">
+    tools:context=".Admin.Culinary.KelMakanan">
 
     <Button
         android:layout_width="wrap_content"

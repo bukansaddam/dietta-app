@@ -1,4 +1,4 @@
-package com.sugadev.dietta.Admin;
+package com.sugadev.dietta.Admin.Culinary;
 
 public class Makanan {
 

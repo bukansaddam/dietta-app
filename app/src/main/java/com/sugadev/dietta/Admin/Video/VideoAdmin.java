@@ -1,4 +1,4 @@
-package com.sugadev.dietta.Admin;
+package com.sugadev.dietta.Admin.Video;
 
 public class VideoAdmin {
 

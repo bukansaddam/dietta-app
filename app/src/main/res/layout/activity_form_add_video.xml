@@ -6,20 +6,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".Admin.FormAddVideo">
+    tools:context=".Admin.Video.FormAddVideo">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Image"
+        android:text="Video"
         android:textSize="16sp"/>
 
     <EditText
-        android:id="@+id/etImageUrl"
+        android:id="@+id/etVideoUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:hint="Url"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thumbnail"
+        android:layout_marginTop="24dp"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/etThumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:hint="Thumbnail"
         android:padding="10dp"
         android:layout_marginTop="10dp"/>
 
@@ -31,7 +47,7 @@
         android:layout_marginTop="24dp"/>
 
     <EditText
-        android:id="@+id/etTitle"
+        android:id="@+id/etTitleVid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
@@ -47,11 +63,27 @@
         android:layout_marginTop="24dp"/>
 
     <EditText
-        android:id="@+id/etDeskripsi"
+        android:id="@+id/etDeskripsiVid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:hint="Deskripsi"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"/>
+
+    <EditText
+        android:id="@+id/etCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:hint="Category"
         android:padding="10dp"
         android:layout_marginTop="10dp"/>
 
@@ -61,5 +93,7 @@
         android:layout_marginTop="24dp"
         android:text="Tambah"
         android:onClick="tambahVideo"/>
+
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

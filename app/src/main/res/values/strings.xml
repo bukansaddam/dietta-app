@@ -3,12 +3,11 @@
     <string name="halo">Halo,</string>
     <string name="ph_nama">nama</string>
 
-    <string-array name="judul_makanan">
-        <item>Kare Ayam</item>
-        <item>Kare Ayam</item>
-        <item>Kare Ayam</item>
-        <item>Kare Ayam</item>
-        <item>Kare Ayam</item>
+    <string-array name="category">
+        <item>Gym</item>
+        <item>Pilates</item>
+        <item>Cardio</item>
+        <item>Yoga</item>
     </string-array>
 
     <string-array name="deskripsi_makanan">

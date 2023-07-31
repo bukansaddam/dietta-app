@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -53,16 +57,16 @@
             android:name=".User.User$VideoUserActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.FormAddMakanan"
+            android:name=".Admin.Culinary.FormAddMakanan"
             android:exported="false" />
         <activity
-            android:name=".Admin.KelMakanan"
+            android:name=".Admin.Culinary.KelMakanan"
             android:exported="false" />
         <activity
-            android:name=".Admin.FormAddVideo"
+            android:name=".Admin.Video.FormAddVideo"
             android:exported="false" />
         <activity
-            android:name=".Admin.KelVideo"
+            android:name=".Admin.Video.KelVideo"
             android:exported="false" />
         <activity
             android:name=".Admin.Dashboard"

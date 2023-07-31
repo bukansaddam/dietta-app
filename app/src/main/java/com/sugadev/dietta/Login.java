@@ -45,8 +45,29 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(dirHome);
+            FirebaseUser user = mAuth.getCurrentUser();
+            mDatabase = FirebaseDatabase.getInstance();
+            mReference = mDatabase.getReference().child("users").child(user.getUid());
+
+            mReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    if (user.getIsAdmin() == true){
+                        Intent dirDashboard = new Intent(getApplicationContext(), Dashboard.class);
+                        startActivity(dirDashboard);
+                        Log.i(TAG, "admin: saya admin");
+                    }else {
+                        Intent dirHome = new Intent(getApplicationContext(), Homepage.class);
+                        startActivity(dirHome);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d(TAG, "the read failed: " + error.getCode());
+                }
+            });
         }
     }
 
