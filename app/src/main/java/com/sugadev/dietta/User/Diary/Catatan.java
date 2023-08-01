@@ -35,9 +35,6 @@ public class Catatan extends Fragment {
     RecyclerView rvDiary;
     TextView empty, totalkalori;
 
-    int getIdCulinary, getIdCulinary2;
-    List<Culinary> culinaries;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,44 +44,10 @@ public class Catatan extends Fragment {
         empty = view.findViewById(R.id.tvEmpty);
         totalkalori = view.findViewById(R.id.tvTotalKalori);
 
-//        getData();
-        getDataDetail();
+        getData();
 
         return view;
     }
-
-    private void getDataDetail() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.174.114.254:8585/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-
-        Call<List<Diary2>> call = jsonPlaceHolderAPI.getDetailDiary();
-
-        call.enqueue(new Callback<List<Diary2>>() {
-            @Override
-            public void onResponse(Call<List<Diary2>> call, Response<List<Diary2>> response) {
-                if (!response.isSuccessful()){
-                    Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                List<Diary2> diaries = response.body();
-                for (Diary2 diary2 : diaries){
-                    Log.i(TAG, "idcul: " + diary2.getIdCulinary());
-                    Log.i(TAG, "name: " + diary2.getFoodname());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Diary2>> call, Throwable t) {
-
-            }
-        });
-    }
-
 
     private void getData() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -92,54 +55,36 @@ public class Catatan extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        Retrofit retrofit2 = new Retrofit.Builder()
-                .baseUrl("http://103.174.114.254:8787/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
         JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-        JsonPlaceHolderAPI jsonPlaceHolderAPI2 = retrofit2.create(JsonPlaceHolderAPI.class);
 
-        Call<List<Diary>> call = jsonPlaceHolderAPI.getDiary();
-        Call<List<Culinary>> callc = jsonPlaceHolderAPI2.getCulinary();
+        Call<List<DiaryDetail>> call = jsonPlaceHolderAPI.getDiary(2);
 
-        callc.enqueue(new Callback<List<Culinary>>() {
+        call.enqueue(new Callback<List<DiaryDetail>>() {
             @Override
-            public void onResponse(Call<List<Culinary>> call, Response<List<Culinary>> response) {
-                if (!response.isSuccessful()){
-                    Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                culinaries = response.body();
-                for (Culinary culinary : culinaries){
-                    getIdCulinary2 = culinary.getIdCulinary();
-                    Log.i(TAG, "ID : " + getIdCulinary2);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Culinary>> call, Throwable t) {
-
-            }
-        });
-
-        call.enqueue(new Callback<List<Diary>>() {
-            @Override
-            public void onResponse(Call<List<Diary>> call, Response<List<Diary>> response) {
+            public void onResponse(Call<List<DiaryDetail>> call, Response<List<DiaryDetail>> response) {
 
                 if (!response.isSuccessful()){
                     Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                int sumKalori = 0;
 
-                List<Diary> diaries = response.body();
+                List<DiaryDetail> diaries = response.body();
+                DiaryAdapter diaryAdapter = new DiaryAdapter(diaries);
+                rvDiary.setAdapter(diaryAdapter);
+                rvDiary.setLayoutManager(new LinearLayoutManager(getContext()));
 
+                for (DiaryDetail diary : diaries){
+                    sumKalori += diary.getCulinary().getKalori();
 
+                }
+
+                totalkalori.setText(String.valueOf(sumKalori));
+                empty.setVisibility(View.GONE);
             }
 
             @Override
-            public void onFailure(Call<List<Diary>> call, Throwable t) {
+            public void onFailure(Call<List<DiaryDetail>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
             }
         });

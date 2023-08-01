@@ -28,6 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class KelMakanan extends AppCompatActivity {
 
+    private static final String api_Culinary = "http://103.174.114.254:8787/";
+
     RecyclerView rvMakanan;
 
     int image[] = {
@@ -55,7 +57,7 @@ public class KelMakanan extends AppCompatActivity {
 
     private void getData(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.31.39.4:8787/")
+                .baseUrl(api_Culinary)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

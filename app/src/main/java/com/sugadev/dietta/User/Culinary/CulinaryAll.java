@@ -25,6 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CulinaryAll extends AppCompatActivity {
 
+    private static final String api_Culinary = "http://103.174.114.254:8787/";
+
     Toolbar toolbar;
     RecyclerView rvCulinary;
 
@@ -48,7 +50,7 @@ public class CulinaryAll extends AppCompatActivity {
 
     private void getDataCulinary() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.174.114.254:8787/")
+                .baseUrl(api_Culinary)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

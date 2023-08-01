@@ -46,6 +46,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Homepage extends Fragment {
 
+    private static final String api_Culinary = "http://103.174.114.254:8787/";
+
     RecyclerView rvMakanan;
 
     LinearLayout gym, yoga, cardio, pilates;
@@ -104,7 +106,7 @@ public class Homepage extends Fragment {
 
     private void dataMakanan(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.174.114.254:8787/")
+                .baseUrl(api_Culinary)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

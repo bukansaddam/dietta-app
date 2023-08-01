@@ -1,5 +1,8 @@
 package com.sugadev.dietta.User.Diary;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,11 @@ import java.util.List;
 
 public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryHolder> {
 
-    List<Diary> data;
+    List<DiaryDetail> data;
+
+    public DiaryAdapter(List<DiaryDetail> diaries) {
+        this.data = diaries;
+    }
 
     @NonNull
     @Override
@@ -30,12 +37,15 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryHolder>
     @Override
     public void onBindViewHolder(@NonNull DiaryHolder holder, int position) {
         int p = position;
-
+        holder.tvTitle.setText(data.get(p).getCulinary().getTitle());
+        holder.tvDesc.setText(data.get(p).getCulinary().getDeskripsi());
+        Picasso.get().load(String.valueOf(data.get(p).getCulinary().getThumbnail())).into(holder.imgMakanan);
+        holder.tvKalori.setText(String.valueOf(data.get(p).getCulinary().getKalori()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 
     public class DiaryHolder extends RecyclerView.ViewHolder {

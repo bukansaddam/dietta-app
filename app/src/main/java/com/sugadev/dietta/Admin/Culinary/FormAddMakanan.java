@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.squareup.picasso.BuildConfig;
 import com.sugadev.dietta.JsonPlaceHolderAPI;
 import com.sugadev.dietta.R;
 import com.sugadev.dietta.User.Culinary.Culinary;
@@ -26,6 +27,8 @@ public class FormAddMakanan extends AppCompatActivity {
     String url, title, desc;
     int lemak, karbo, protein, kalori;
 
+    private static final String api_Culinary = "http://103.174.114.254:8787/";
+
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
 
@@ -41,7 +44,7 @@ public class FormAddMakanan extends AppCompatActivity {
 
     private void getData() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.31.39.4:8787/")
+                .baseUrl(api_Culinary)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

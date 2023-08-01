@@ -71,7 +71,7 @@ public class CulinaryAdapterAll extends RecyclerView.Adapter<CulinaryAdapterAll.
                 String currTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 Log.i(TAG, "time: " + currTime);
 
-                Diary diary = new Diary(0, "tes", "tes", currTime, 2, data.get(p).getIdCulinary());
+                Diary diary = new Diary(0, "tes", "tes", currTime, 2, data.get(p).getIdCulinary(), data.get(p).getTitle(), data.get(p).getKalori(), data.get(p).getThumbnail());
 
                 Call<Diary> call = jsonPlaceHolderAPI.addDiary(diary);
 

@@ -1,20 +1,18 @@
 package com.sugadev.dietta;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.sugadev.dietta.User.Culinary.Culinary;
 import com.sugadev.dietta.User.Diary.Diary;
-import com.sugadev.dietta.User.Diary.Diary2;
+import com.sugadev.dietta.User.Diary.DiaryDetail;
 import com.sugadev.dietta.User.Video.Model.Video;
 
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface JsonPlaceHolderAPI {
 
@@ -24,11 +22,11 @@ public interface JsonPlaceHolderAPI {
     @GET("video/all")
     Call<List<Video>> getVideo();
 
-    @GET("diary/all")
-    Call<List<Diary>> getDiary();
+    @GET("/diary/all")
+    Call<List<Diary>> getAllDiary();
 
-    @GET("diary/2")
-    Call<List<Diary2>> getDetailDiary();
+    @GET("diary/user/{id}")
+    Call<List<DiaryDetail>> getDiary(@Path("id") int culinaryId);
 
     @GET("video/category/gym")
     Call<List<Video>> getGym();

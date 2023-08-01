@@ -129,7 +129,7 @@ public class Track extends Fragment {
 
                 String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
 
-                double kaloriBurn = 0.10 - 0.20 / secs;
+                double kaloriBurn = 0.10 - 0.20 / seconds;
 
                 DecimalFormat df = new DecimalFormat("#.##");
                 timeView.setText(time);
