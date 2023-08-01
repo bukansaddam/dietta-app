@@ -1,6 +1,8 @@
 package com.sugadev.dietta;
 
 import com.sugadev.dietta.User.Culinary.Culinary;
+import com.sugadev.dietta.User.Diary.Diary;
+import com.sugadev.dietta.User.Diary.Diary2;
 import com.sugadev.dietta.User.Video.Model.Video;
 
 import java.util.List;
@@ -22,6 +24,12 @@ public interface JsonPlaceHolderAPI {
     @GET("video/all")
     Call<List<Video>> getVideo();
 
+    @GET("diary/all")
+    Call<List<Diary>> getDiary();
+
+    @GET("diary/2")
+    Call<List<Diary2>> getDetailDiary();
+
     @GET("video/category/gym")
     Call<List<Video>> getGym();
 
@@ -39,4 +47,7 @@ public interface JsonPlaceHolderAPI {
 
     @POST("video/add")
     Call<Video> addVideo(@Body Video video);
+
+    @POST("diary/add")
+    Call<Diary> addDiary(@Body Diary diary);
 }

@@ -46,12 +46,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Homepage extends Fragment {
 
-    TextView name;
-    ImageView btnLogout;
-    FirebaseAuth mAuth;
-    DatabaseReference mReference;
-    FirebaseUser mUser;
-    FirebaseDatabase mDatabase;
     RecyclerView rvMakanan;
 
     LinearLayout gym, yoga, cardio, pilates;
@@ -61,8 +55,6 @@ public class Homepage extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_homepage, container, false);
 
-        name = view.findViewById(R.id.phNama);
-        btnLogout = view.findViewById(R.id.btnLogout);
         rvMakanan = view.findViewById(R.id.rvMakananHome);
         yoga = view.findViewById(R.id.btnYoga);
         gym = view.findViewById(R.id.btnGym);
@@ -72,8 +64,6 @@ public class Homepage extends Fragment {
         dataMakanan();
 
         btnVideo();
-
-        firebaseGetUser();
 
         return view;
     }
@@ -114,7 +104,7 @@ public class Homepage extends Fragment {
 
     private void dataMakanan(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.31.39.4:8787/")
+                .baseUrl("http://103.174.114.254:8787/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -145,36 +135,6 @@ public class Homepage extends Fragment {
             }
         });
 
-    }
-
-    private void firebaseGetUser(){
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference().child("users").child(mUser.getUid());
-
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                name.setText(user.getName());
-                Log.i(TAG, "name: " + user.getName());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(TAG, "the read failed: " + error.getCode());
-            }
-        });
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                Intent dirLogin = new Intent(getContext(), Login.class);
-                startActivity(dirLogin);
-            }
-        });
     }
 
 }

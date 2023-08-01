@@ -1,7 +1,6 @@
 package com.sugadev.dietta.Admin;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ public class MakananAdapter extends RecyclerView.Adapter<MakananAdapter.MakananH
     @Override
     public MakananHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.model_makanan_admin,parent,false);
+        View view = layoutInflater.inflate(R.layout.model_makanan_horizontal,parent,false);
         return new MakananHolder(view);
     }
 

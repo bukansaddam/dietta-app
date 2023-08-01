@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity {
                         startActivity(dirDashboard);
                         Log.i(TAG, "admin: saya admin");
                     }else {
-                        Intent dirHome = new Intent(getApplicationContext(), Homepage.class);
+                        Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(dirHome);
                     }
                 }
@@ -119,7 +119,7 @@ public class Login extends AppCompatActivity {
                                                     startActivity(dirDashboard);
                                                     Log.i(TAG, "admin: saya admin");
                                                 }else {
-                                                    Intent dirHome = new Intent(getApplicationContext(), Homepage.class);
+                                                    Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
                                                     startActivity(dirHome);
                                                 }
                                             }

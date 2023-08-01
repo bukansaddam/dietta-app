@@ -75,4 +75,5 @@ public class CulinaryAdapterHome extends RecyclerView.Adapter<CulinaryAdapterHom
             detail = view.findViewById(R.id.cardHome);
         }
     }
+
 }

@@ -5,6 +5,8 @@
     <color name="blue">#2F2C3B</color>
     <color name="orange">#FD664E</color>
     <color name="grey">#C0C0C0</color>
+    <color name="blue_grad">#1E10C2</color>
+    <color name="purple_grad">#C812B6</color>
 
     <color name="co_pilates">#DFEBBE</color>
     <color name="co_gym">#F2DB93</color>
