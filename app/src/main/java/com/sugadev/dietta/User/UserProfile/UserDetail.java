@@ -1,49 +1,23 @@
-package com.sugadev.dietta.User;
+package com.sugadev.dietta.User.UserProfile;
 
 import static android.content.ContentValues.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import com.sugadev.dietta.JsonPlaceHolderAPI;
-import com.sugadev.dietta.Login;
 import com.sugadev.dietta.R;
-import com.sugadev.dietta.User.UserProfile.UserProfile;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Profile extends AppCompatActivity {
-
-    Button btnLogout;
-    TextView name;
-    FirebaseAuth mAuth;
-    DatabaseReference mReference;
-    FirebaseUser mUser;
-    FirebaseDatabase mDatabase;
-
+public class UserDetail extends AppCompatActivity {
 
     TextView Username, Password, Nama, Email, Notelp, BeratBadan, TinggiBadan;
 
@@ -53,7 +27,7 @@ public class Profile extends AppCompatActivity {
 
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -67,50 +41,12 @@ public class Profile extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle(iNama);
 
     }
 
-    private void declaration() {
-        btnLogout = findViewById(R.id.btnLogout);
-        Username = findViewById(R.id.tvUsername);
-        Password = findViewById(R.id.tvPassword);
-        Nama = findViewById(R.id.tvNama);
-        Email = findViewById(R.id.tvEmail);
-        Notelp = findViewById(R.id.tvNotelp);
-        TinggiBadan = findViewById(R.id.tvTinggiBadan);
-        BeratBadan = findViewById(R.id.tvBeratBadan);
-    }
 
-//    private void firebaseGetUser(){
-//        mAuth = FirebaseAuth.getInstance();
-//        mUser = mAuth.getCurrentUser();
-//        mDatabase = FirebaseDatabase.getInstance();
-//        mReference = mDatabase.getReference().child("users").child(mUser.getUid());
-//
-//        mReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                User user = snapshot.getValue(User.class);
-//                name.setText(user.getName());
-//                Log.i(TAG, "name: " + user.getName());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.d(TAG, "the read failed: " + error.getCode());
-//            }
-//        });
-//
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mAuth.signOut();
-//                Intent dirLogin = new Intent(getApplicationContext(), Login.class);
-//                startActivity(dirLogin);
-//            }
-//        });
-//    }
+
 
     private void setData() {
         Username.setText(iUsername);
@@ -122,6 +58,28 @@ public class Profile extends AppCompatActivity {
         BeratBadan.setText(String.valueOf(iBeratBadan));
 
     }
+
+    private void declaration() {
+        Username = findViewById(R.id.tvUsername);
+        Password = findViewById(R.id.tvPassword);
+        Nama = findViewById(R.id.tvNama);
+        Email = findViewById(R.id.tvEmail);
+        Notelp = findViewById(R.id.tvNotelp);
+        TinggiBadan = findViewById(R.id.tvTinggiBadan);
+        BeratBadan = findViewById(R.id.tvBeratBadan);
+
+    }
+
+//    private void getData() {
+//        Intent intent = getIntent();
+//        iUsername = intent.getStringExtra("username");
+//        iPassword = intent.getStringExtra("password");
+//        iNama = intent.getStringExtra("name");
+//        iEmail = intent.getStringExtra("email");
+//        iNotelp = intent.getIntExtra("no_telp", 0);
+//        iTinggiBadan = intent.getIntExtra("tinggi_badan", 0);
+//        iBeratBadan = intent.getIntExtra("berat_badan", 0);
+//    }
 
 
     private void getData() {
@@ -151,6 +109,8 @@ public class Profile extends AppCompatActivity {
                     iNotelp = userProfile.getNo_telp();
                     iTinggiBadan = userProfile.getTinggiBadan();
                     iBeratBadan = userProfile.getBeratBadan();
+
+                    // Update UI with the retrieved data
                     setData();
                 } else {
                     Toast.makeText(getApplicationContext(), "User profile data is null", Toast.LENGTH_SHORT).show();
@@ -164,12 +124,13 @@ public class Profile extends AppCompatActivity {
             }
 
         });
-
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
 }

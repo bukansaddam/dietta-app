@@ -6,6 +6,7 @@ import com.sugadev.dietta.User.Diary.DiaryDetail;
 import com.sugadev.dietta.User.Schedule.Model.Schedul;
 import com.sugadev.dietta.User.Schedule.Model.ScheduleDetailParent;
 import com.sugadev.dietta.User.Schedule.Model.Schedule;
+import com.sugadev.dietta.User.UserProfile.UserProfile;
 import com.sugadev.dietta.User.Video.Model.Video;
 
 import java.util.List;
@@ -62,6 +63,9 @@ public interface JsonPlaceHolderAPI {
     @PUT("video/update/{id}")
     Call<Video> updateVideo(@Path("id") int id, @Body Video video);
 
+    @DELETE("diary/delete/{id}")
+    Call<Diary> deleteDiary(@Path("id") int id);
+
     @DELETE("video/delete/{id}")
     Call<Video> deleteVideo(@Path("id") int id);
 
@@ -71,7 +75,10 @@ public interface JsonPlaceHolderAPI {
     @DELETE("culinary/delete/{id}")
     Call<Culinary> deleteMakanan(@Path("id") int id);
 
-    @DELETE("diary/delete/{id}")
-    Call<Diary> deleteDiary(@Path("id") int id);
+    @GET("user/{id}")
+    Call<UserProfile> getUserDetail(@Path("id")int id);
+
+
+
 
 }
