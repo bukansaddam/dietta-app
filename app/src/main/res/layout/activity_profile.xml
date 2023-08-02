@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".User.Profile">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"/>
+
     <ImageView
         android:id="@+id/imgProfil"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/image"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/toolbar"/>
 
     <TextView
         android:id="@+id/tvUbahFotoProfil"
@@ -88,6 +95,7 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/tvNamaProfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="koko"
@@ -187,6 +195,7 @@
             android:text="Edit Profil"/>
 
         <Button
+            android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout"/>

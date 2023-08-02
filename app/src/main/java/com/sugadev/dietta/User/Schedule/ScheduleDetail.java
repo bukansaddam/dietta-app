@@ -1,10 +1,9 @@
-package com.sugadev.dietta.Admin.Culinary;
+package com.sugadev.dietta.User.Schedule;
 
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,14 +11,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sugadev.dietta.Admin.Culinary.FormAddMakanan;
 import com.sugadev.dietta.JsonPlaceHolderAPI;
 import com.sugadev.dietta.R;
-import com.sugadev.dietta.User.Culinary.Culinary;
-import com.sugadev.dietta.User.Culinary.CulinaryAdapterAll;
-import com.sugadev.dietta.User.Culinary.CulinaryAdapterHome;
+import com.sugadev.dietta.User.Schedule.Model.Schedul;
+import com.sugadev.dietta.User.Schedule.Model.Schedule;
+import com.sugadev.dietta.User.Schedule.Model.ScheduleDetailParent;
 
 import java.util.List;
 
@@ -29,73 +29,76 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class KelMakanan extends AppCompatActivity {
+public class ScheduleDetail extends AppCompatActivity {
 
-    private static final String api_Culinary = "http://103.174.114.254:8787/";
+    RecyclerView rvDetSche;
+    Toolbar toolbar;
+    EditText etWaktu;
+    Button btnMulai;
 
-    RecyclerView rvMakanan;
+    String iTitle;
+    int idScheduleParent;
 
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
-    Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kel_makanan);
+        setContentView(R.layout.activity_schedule_detail);
 
         declaration();
+        getDataIntent();
         getData();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Kelola Makanan");
+        getSupportActionBar().setTitle(iTitle);
 
     }
-
-    private void declaration() {
-        rvMakanan = findViewById(R.id.rvMakanan);
+    private void declaration(){
+        rvDetSche = findViewById(R.id.rvVideoSche);
         toolbar = findViewById(R.id.toolbar);
+        etWaktu = findViewById(R.id.etMenit);
+        btnMulai = findViewById(R.id.btnMulai);
+    }
+
+    private void getDataIntent(){
+        Intent intent = getIntent();
+        idScheduleParent = intent.getIntExtra("id", 0);
+        iTitle = intent.getStringExtra("title");
     }
 
     private void getData(){
         retrofit = new Retrofit.Builder()
-                .baseUrl(api_Culinary)
+                .baseUrl("http://103.174.115.40:8989/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
 
-        Call<List<Culinary>> call = jsonPlaceHolderAPI.getCulinary();
+        Call<List<Schedul>> call = jsonPlaceHolderAPI.getScheduleChild(idScheduleParent);
 
-        call.enqueue(new Callback<List<Culinary>>() {
+
+        call.enqueue(new Callback<List<Schedul>>() {
             @Override
-            public void onResponse(Call<List<Culinary>> call, Response<List<Culinary>> response) {
-
+            public void onResponse(Call<List<Schedul>> call, Response<List<Schedul>> response) {
                 if (!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                List<Culinary> culinaries = response.body();
-
-                CulinaryAdapterAdmin culinaryAdapterAll = new CulinaryAdapterAdmin(culinaries);
-                rvMakanan.setAdapter(culinaryAdapterAll);
-                rvMakanan.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
+                List<Schedul> scheduleDetailParents = response.body();
+                ScheduleDetailAdapter scheduleAdapter = new ScheduleDetailAdapter(scheduleDetailParents);
+                rvDetSche.setAdapter(scheduleAdapter);
+                rvDetSche.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             }
 
             @Override
-            public void onFailure(Call<List<Culinary>> call, Throwable t) {
+            public void onFailure(Call<List<Schedul>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
             }
         });
-    }
-
-    public void tambahMakanan(View view) {
-        Intent intent = new Intent(getApplicationContext(), FormAddMakanan.class);
-        startActivity(intent);
     }
 
     @Override

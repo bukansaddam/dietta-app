@@ -1,11 +1,16 @@
 package com.sugadev.dietta.Admin.Video;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.sugadev.dietta.JsonPlaceHolderAPI;
 import com.sugadev.dietta.R;
@@ -17,11 +22,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FormAddVideo extends AppCompatActivity {
+public class FormEditVideo extends AppCompatActivity {
 
     EditText etUrl, etThumbnail, etTitle, etDesc, etCategory;
 
     String title, description, url, thumbnail, category;
+
+    String iVideo, iTitle, iDesc, iCategory, iThumbnail;
+    int iId;
+    Toolbar toolbar;
 
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
@@ -29,11 +38,25 @@ public class FormAddVideo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_add_video);
+        setContentView(R.layout.activity_form_edit_video);
 
         declaration();
         getData();
+        getDataIntent();
+        setEditText();
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Edit Video");
+
+    }
+
+    private void setEditText(){
+        etUrl.setText(iVideo);
+        etThumbnail.setText(iThumbnail);
+        etTitle.setText(iTitle);
+        etDesc.setText(iDesc);
+        etCategory.setText(iCategory);
     }
 
     private void getData() {
@@ -52,34 +75,53 @@ public class FormAddVideo extends AppCompatActivity {
         etTitle = findViewById(R.id.etTitleVid);
         etDesc = findViewById(R.id.etDeskripsiVid);
         etCategory = findViewById(R.id.etCategory);
+        toolbar = findViewById(R.id.toolbar);
     }
 
-    public void tambahVideo(View view) {
+    private void getDataIntent(){
+        Intent intent = getIntent();
+        iId = intent.getIntExtra("id",0);
+        iVideo = intent.getStringExtra("video");
+        iTitle = intent.getStringExtra("title");
+        iDesc = intent.getStringExtra("desc");
+        iCategory = intent.getStringExtra("category");
+        iThumbnail = intent.getStringExtra("thumbnail");
+        Log.i(TAG, "iduser: " + iId);
+    }
+
+    public void editVideo(View view) {
         url = etUrl.getText().toString();
         thumbnail = etThumbnail.getText().toString();
         title = etTitle.getText().toString();
         description = etDesc.getText().toString();
         category = etCategory.getText().toString();
 
+
         Video video = new Video(0, title, description, category, url, thumbnail);
 
-        Call<Video> call = jsonPlaceHolderAPI.addVideo(video);
+        Call<Video> call = jsonPlaceHolderAPI.updateVideo(iId, video);
 
         call.enqueue(new Callback<Video>() {
             @Override
             public void onResponse(Call<Video> call, Response<Video> response) {
                 if (!response.isSuccessful()){
-                    Toast.makeText(FormAddVideo.this, "Code : " + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FormEditVideo.this, "Code : " + response.code(), Toast.LENGTH_SHORT).show();
                 }
 
-                Toast.makeText(FormAddVideo.this, "Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormEditVideo.this, "Berhasil Diubah", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(Call<Video> call, Throwable t) {
-
+                Toast.makeText(FormEditVideo.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

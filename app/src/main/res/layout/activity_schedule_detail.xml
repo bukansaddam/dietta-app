@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".User.Schedule.ScheduleDetail">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvVideoSche"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@+id/layout12"/>
+
+    <LinearLayout
+        android:id="@+id/layout12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/sesi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masukkan waktu per sesi"
+                android:layout_centerVertical="true"/>
+
+            <EditText
+                android:id="@+id/etMenit"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/menit"/>
+
+            <TextView
+                android:id="@+id/menit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="detik"
+                android:layout_marginStart="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnMulai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Mulai"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

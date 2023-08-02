@@ -3,6 +3,7 @@ package com.sugadev.dietta.Admin.Video;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,8 @@ public class KelVideo extends AppCompatActivity {
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
 
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,15 @@ public class KelVideo extends AppCompatActivity {
 
         declaration();
         getData();
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Kelola Video");
     }
 
     private void getData(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.31.39.4:8484/")
+                .baseUrl("http://103.174.115.40:8484")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -64,8 +71,8 @@ public class KelVideo extends AppCompatActivity {
 
                 List<Video> videos = response.body();
 
-                VideoAdapter videoAdapter = new VideoAdapter(videos);
-                rvVideo.setAdapter(videoAdapter);
+                VideoAdapterAdmin videoAdapterAdmin = new VideoAdapterAdmin(videos);
+                rvVideo.setAdapter(videoAdapterAdmin);
                 rvVideo.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
             }
@@ -79,10 +86,17 @@ public class KelVideo extends AppCompatActivity {
 
     private void declaration(){
         rvVideo = findViewById(R.id.rvVideo);
+        toolbar = findViewById(R.id.toolbar);
     }
 
     public void tambahVideo(View view) {
         Intent intent = new Intent(getApplicationContext(), FormAddVideo.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

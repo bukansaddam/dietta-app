@@ -7,10 +7,6 @@ android {
     namespace 'com.sugadev.dietta'
     compileSdk 33
 
-    buildFeatures{
-        buildConfig = true
-    }
-
     defaultConfig {
         applicationId "com.sugadev.dietta"
         minSdk 24
@@ -25,12 +21,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'API_Diary', "\"http://103.174.114.254:8585/\""
-            buildConfigField "String", "API_Culinary", "\"http://103.174.114.254:8787/\""
-            buildConfigField "String", "API_Video", "\"http://103.174.115.40:8484/\""
-            buildConfigField "String", "API_History", "\"http://103.31.39.4:8686/\""
-            buildConfigField "String", "API_Schedule", "\"http://103.174.115.40:8989/\""
-            buildConfigField "String", "API_User", "\"http://103.174.114.254:8585/\""
         }
     }
     compileOptions {

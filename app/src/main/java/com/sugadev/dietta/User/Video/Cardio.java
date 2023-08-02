@@ -31,14 +31,6 @@ public class Cardio extends AppCompatActivity {
 
     RecyclerView rvVideo;
 
-    int image[] = {
-            R.drawable.kare,
-            R.drawable.kare,
-            R.drawable.kare,
-            R.drawable.kare,
-            R.drawable.kare
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +56,7 @@ public class Cardio extends AppCompatActivity {
 
     private void dataVideo(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.31.39.4:8484/")
+                .baseUrl("http://103.174.115.40:8484/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -82,6 +74,9 @@ public class Cardio extends AppCompatActivity {
                 }
 
                 List<Video> videos = response.body();
+                for (Video video : videos){
+                    String nama = video.getTitle();
+                }
 
                 VideoAdapter videoAdapter = new VideoAdapter(videos);
                 rvVideo.setAdapter(videoAdapter);

@@ -28,6 +28,7 @@ import com.sugadev.dietta.User.Culinary.CulinaryAll;
 import com.sugadev.dietta.User.History;
 import com.sugadev.dietta.User.Homepage;
 import com.sugadev.dietta.User.Profile;
+import com.sugadev.dietta.User.Schedule.ScheduleView;
 import com.sugadev.dietta.User.Track;
 import com.sugadev.dietta.User.User;
 
@@ -41,9 +42,10 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     History historyFragment = new History();
     Profile profileFragment = new Profile();
     Homepage homepageFragment = new Homepage();
+    ScheduleView scheduleViewFragment = new ScheduleView();
 
     TextView name, title;
-    ImageView btnLogout;
+    ImageView btnProfil;
     FirebaseAuth mAuth;
     DatabaseReference mReference;
     FirebaseUser mUser;
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     private void declaration(){
         name = findViewById(R.id.phNama);
-        btnLogout = findViewById(R.id.btnLogout);
+        btnProfil = findViewById(R.id.btnProfil);
         title = findViewById(R.id.tvTitle);
         addDiary = findViewById(R.id.fabAddDiary);
     }
@@ -104,12 +106,14 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
-                Intent dirLogin = new Intent(getApplicationContext(), Login.class);
-                startActivity(dirLogin);
+//                mAuth.signOut();
+//                Intent dirLogin = new Intent(getApplicationContext(), Login.class);
+//                startActivity(dirLogin);
+                Intent dirProfil = new Intent(getApplicationContext(), Profile.class);
+                startActivity(dirProfil);
             }
         });
     }
@@ -121,9 +125,9 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             title.setText("Catatan");
             addDiary.setVisibility(View.VISIBLE);
             return true;
-        } else if (item.getItemId() == R.id.profile) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, profileFragment).commit();
-            title.setText("Profile");
+        } else if (item.getItemId() == R.id.schedule) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, scheduleViewFragment).commit();
+            title.setText("Schedule");
             addDiary.setVisibility(View.GONE);
             return true;
         } else if (item.getItemId() == R.id.tracker) {

@@ -1,6 +1,7 @@
 package com.sugadev.dietta.User;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
@@ -27,7 +28,8 @@ public class Track extends Fragment {
 
     private boolean wasRunning;
 
-    ImageView start;
+    ImageView start, pause, stop, start2, stop2;
+    LinearLayoutCompat layout, layout2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,19 +50,76 @@ public class Track extends Fragment {
         runTimer();
 
         start = view.findViewById(R.id.btnStart);
+        pause = view.findViewById(R.id.btnPause);
+        stop = view.findViewById(R.id.btnStop);
+        layout = view.findViewById(R.id.layout);
+        layout2 = view.findViewById(R.id.layout2);
+        start2 = view.findViewById(R.id.btnStart2);
+        stop2 = view.findViewById(R.id.btnStop2);
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (running == false) {
                     running = true;
-                }else {
-                    running = false;
-                    seconds = 0;
+                    layout.setVisibility(View.VISIBLE);
+                    start.setVisibility(View.GONE);
                 }
             }
         });
 
+        stop();
+        pause();
+        start();
+        stop2();
+
         return view;
+    }
+
+    private void start(){
+        start2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                running = true;
+                layout2.setVisibility(View.GONE);
+                layout.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void stop2(){
+        stop2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                running = false;
+                seconds = 0;
+                layout2.setVisibility(View.GONE);
+                start.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void pause(){
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                running = false;
+                layout.setVisibility(View.GONE);
+                layout2.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void stop(){
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                running = false;
+                seconds = 0;
+                layout.setVisibility(View.GONE);
+                start.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override

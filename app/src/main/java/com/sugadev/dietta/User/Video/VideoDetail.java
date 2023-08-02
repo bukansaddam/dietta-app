@@ -55,8 +55,8 @@ public class VideoDetail extends AppCompatActivity {
         Uri uri = Uri.parse(iVideo);
 
         MediaController mc = new MediaController(this);
-        mc.setAnchorView(videoOlahraga);
-        mc.setMediaPlayer(videoOlahraga);
+//        mc.setAnchorView(videoOlahraga);
+//        mc.setMediaPlayer(videoOlahraga);
         videoOlahraga.setMediaController(mc);
         videoOlahraga.setVideoURI(uri);
         videoOlahraga.requestFocus();

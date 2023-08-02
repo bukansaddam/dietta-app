@@ -15,13 +15,14 @@
             android:title="Track"
             android:icon="@drawable/ic_track"/>
     <item
+        android:id="@+id/schedule"
+        android:title="Schedule"
+        android:icon="@drawable/ic_schedule_24"/>
+    <item
             android:id="@+id/history"
             android:title="History"
             android:icon="@drawable/ic_history"/>
-    <item
-            android:id="@+id/profile"
-            android:title="Profile"
-            android:icon="@drawable/ic_profil"/>
+
 
 
 

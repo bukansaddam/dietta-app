@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".User.History">
+    tools:context=".User.Schedule.ScheduleView">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -16,28 +16,26 @@
         android:paddingTop="24dp"
         android:paddingEnd="16dp">
 
-        <TextView
-            android:id="@+id/tvDelHistory"
+        <ImageView
+            android:id="@+id/btnAddSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="Hapus Semua"
-            android:textColor="#C12020" />
-
+            android:src="@drawable/ic_add_24"
+            android:layout_alignParentEnd="true"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDiary"
+            android:id="@+id/rvSchedule"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tvDelHistory"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="14dp"
+            android:layout_below="@+id/btnAddSchedule"/>
 
         <TextView
-            android:id="@+id/tvEmpty"
+            android:id="@+id/tvEmptySche"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Anda belum mempunyai history" />
+            android:text="Anda belum mempunyai jadwal" />
 
     </RelativeLayout>
 

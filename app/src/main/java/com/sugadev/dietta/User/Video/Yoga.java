@@ -62,7 +62,7 @@ public class Yoga extends AppCompatActivity {
 
     private void dataVideo(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://103.31.39.4:8484/")
+                .baseUrl("http://103.174.115.40:8484/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

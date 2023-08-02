@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".User.Schedule.ScheduleDetail"
+            android:exported="false" />
+        <activity
+            android:name=".User.Schedule.ScheduleView"
+            android:exported="false" />
+        <activity
             android:name=".User.Culinary.CulinaryAll"
             android:exported="false" />
         <activity
@@ -59,13 +65,25 @@
             android:name=".Admin.Culinary.FormAddMakanan"
             android:exported="false" />
         <activity
+            android:name=".Admin.Culinary.CulinaryDetailAdmin"
+            android:exported="false" />
+        <activity
             android:name=".Admin.Culinary.KelMakanan"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Culinary.FormEditMakanan"
             android:exported="false" />
         <activity
             android:name=".Admin.Video.FormAddVideo"
             android:exported="false" />
         <activity
+            android:name=".Admin.Video.FormEditVideo"
+            android:exported="false" />
+        <activity
             android:name=".Admin.Video.KelVideo"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Video.VideoDetailAdmin"
             android:exported="false" />
         <activity
             android:name=".Admin.Dashboard"
