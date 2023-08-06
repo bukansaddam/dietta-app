@@ -44,6 +44,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> 
             @Override
             public void onClick(View v) {
                 Intent dirDetail = new Intent(v.getContext(), VideoDetailView.class);
+                dirDetail.putExtra("id", data.get(p).getId());
                 dirDetail.putExtra("video", data.get(p).getUrl());
                 dirDetail.putExtra("title", data.get(p).getTitle());
                 dirDetail.putExtra("desc", data.get(p).getDescription());
