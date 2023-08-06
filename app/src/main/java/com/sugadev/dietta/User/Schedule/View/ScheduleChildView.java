@@ -22,11 +22,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sugadev.dietta.API.BaseUrlConfig;
 import com.sugadev.dietta.API.JsonPlaceHolderAPI;
 import com.sugadev.dietta.R;
+import com.sugadev.dietta.User.History.Model.History;
+import com.sugadev.dietta.User.History.Model.HistoryParent;
 import com.sugadev.dietta.User.Schedule.Adapter.ScheduleChildAdapter;
 import com.sugadev.dietta.User.Schedule.Model.Child.ScheduleChildDetail;
+import com.sugadev.dietta.User.Schedule.Model.Parent.ScheduleHistoryParent;
 import com.sugadev.dietta.User.Video.View.VideoAllView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,8 +49,8 @@ public class ScheduleChildView extends AppCompatActivity {
     Button btnMulai;
     FloatingActionButton fabAddVideo;
 
-    String iTitle;
-    int idScheduleParent;
+    String iTitle, iDesc;
+    int idScheduleParent, idScheHP, jumlahData;
 
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
@@ -72,12 +79,12 @@ public class ScheduleChildView extends AppCompatActivity {
         btnMulai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int jumlahData = rvDetSche.getAdapter().getItemCount();
+                jumlahData = rvDetSche.getAdapter().getItemCount();
                 int waktuSesi = Integer.parseInt(etWaktu.getText().toString());
 
                 int totalWaktu = (jumlahData * waktuSesi) * 1000;
 
-                new CountDownTimer(totalWaktu,1000){
+                new CountDownTimer(totalWaktu, 1000) {
 
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -86,14 +93,15 @@ public class ScheduleChildView extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        Toast.makeText(ScheduleChildView.this, "Selesai", Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "onFinish: ");
+                        addHistory();
                     }
                 }.start();
             }
         });
     }
 
-    private void initialization(){
+    private void initialization() {
         rvDetSche = findViewById(R.id.rvVideoSche);
         etWaktu = findViewById(R.id.etMenit);
         btnMulai = findViewById(R.id.btnMulai);
@@ -105,7 +113,7 @@ public class ScheduleChildView extends AppCompatActivity {
         getSupportActionBar().setTitle(iTitle);
     }
 
-    private void dirVideoAll(){
+    private void dirVideoAll() {
         fabAddVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,13 +124,14 @@ public class ScheduleChildView extends AppCompatActivity {
         });
     }
 
-    private void getDataIntent(){
+    private void getDataIntent() {
         Intent intent = getIntent();
         idScheduleParent = intent.getIntExtra("id", 0);
         iTitle = intent.getStringExtra("title");
+        iDesc = intent.getStringExtra("desc");
     }
 
-    private void loadToken(){
+    private void loadToken() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(TOKEN, "");
         id = sharedPreferences.getString(ID, "");
@@ -130,7 +139,7 @@ public class ScheduleChildView extends AppCompatActivity {
         Log.i(TAG, "loadToken: " + token + id);
     }
 
-    private void getData(){
+    private void getData() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BaseUrlConfig.BASE_URL_SCHEDULE)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -139,11 +148,11 @@ public class ScheduleChildView extends AppCompatActivity {
         loadToken();
 
         jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-        Call<List<ScheduleChildDetail>> call = jsonPlaceHolderAPI.getScheduleChild("Bearer "+token,idScheduleParent);
+        Call<List<ScheduleChildDetail>> call = jsonPlaceHolderAPI.getScheduleChild("Bearer " + token, idScheduleParent);
         call.enqueue(new Callback<List<ScheduleChildDetail>>() {
             @Override
             public void onResponse(Call<List<ScheduleChildDetail>> call, Response<List<ScheduleChildDetail>> response) {
-                if (!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -157,6 +166,42 @@ public class ScheduleChildView extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<ScheduleChildDetail>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    private void addHistory() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrlConfig.BASE_URL_HISTORY)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        loadToken();
+
+        Date time = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyy", Locale.getDefault());
+        String currtime = df.format(time);
+
+        int totalExcercise = rvDetSche.getAdapter().getItemCount();
+
+        History history = new History(0, iTitle, iDesc, currtime, totalExcercise, idUser);
+
+        jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
+        Call<History> call = jsonPlaceHolderAPI.addHistory("Bearer " + token, history);
+
+        call.enqueue(new Callback<History>() {
+            @Override
+            public void onResponse(Call<History> call, Response<History> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(ScheduleChildView.this, "Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+
+                Toast.makeText(ScheduleChildView.this, "Berhasil Ditambahkan ke History", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<History> call, Throwable t) {
+
             }
         });
     }

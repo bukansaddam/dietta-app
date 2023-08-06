@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +30,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class KelVideo extends AppCompatActivity {
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TOKEN = "token";
+    public static final String ID = "idUser";
+    private String token, id;
+    private int idUser;
 
     RecyclerView rvVideo;
 
@@ -50,6 +58,14 @@ public class KelVideo extends AppCompatActivity {
         getSupportActionBar().setTitle("Kelola Video");
     }
 
+    private void loadToken(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(TOKEN, "");
+        id = sharedPreferences.getString(ID, "");
+        idUser = Integer.parseInt(id);
+        Log.i(TAG, "loadToken: " + token + id);
+    }
+
     private void getData(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(BaseUrlConfig.BASE_URL_VIDEO)
@@ -58,7 +74,7 @@ public class KelVideo extends AppCompatActivity {
 
         jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
 
-        Call<List<Video>> call = jsonPlaceHolderAPI.getVideo();
+        Call<List<Video>> call = jsonPlaceHolderAPI.getVideo("Bearer " + token);
 
         call.enqueue(new Callback<List<Video>>() {
             @Override

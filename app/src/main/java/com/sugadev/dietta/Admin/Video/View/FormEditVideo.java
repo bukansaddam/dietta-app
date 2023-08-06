@@ -2,7 +2,9 @@ package com.sugadev.dietta.Admin.Video.View;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FormEditVideo extends AppCompatActivity {
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TOKEN = "token";
+    public static final String ID = "idUser";
+    private String token, id;
+    private int idUser;
 
     EditText etUrl, etThumbnail, etTitle, etDesc, etCategory;
 
@@ -90,6 +98,14 @@ public class FormEditVideo extends AppCompatActivity {
         Log.i(TAG, "iduser: " + iId);
     }
 
+    private void loadToken(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(TOKEN, "");
+        id = sharedPreferences.getString(ID, "");
+        idUser = Integer.parseInt(id);
+        Log.i(TAG, "loadToken: " + token + id);
+    }
+
     public void editVideo(View view) {
         url = etUrl.getText().toString();
         thumbnail = etThumbnail.getText().toString();
@@ -97,10 +113,11 @@ public class FormEditVideo extends AppCompatActivity {
         description = etDesc.getText().toString();
         category = etCategory.getText().toString();
 
+        loadToken();
 
         Video video = new Video(0, title, description, category, url, thumbnail);
 
-        Call<Video> call = jsonPlaceHolderAPI.updateVideo(iId, video);
+        Call<Video> call = jsonPlaceHolderAPI.updateVideo("Bearer " + token, iId, video);
 
         call.enqueue(new Callback<Video>() {
             @Override

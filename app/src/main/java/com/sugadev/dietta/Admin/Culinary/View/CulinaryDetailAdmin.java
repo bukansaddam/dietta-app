@@ -1,7 +1,12 @@
 package com.sugadev.dietta.Admin.Culinary.View;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +29,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CulinaryDetailAdmin extends AppCompatActivity {
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TOKEN = "token";
+    public static final String ID = "idUser";
+    private String token, id;
+    private int idUser;
 
     ImageView imgCulinary;
     TextView title, description, protein, lemak, karbo, kalori;
@@ -81,11 +92,21 @@ public class CulinaryDetailAdmin extends AppCompatActivity {
         });
     }
 
+    private void loadToken(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(TOKEN, "");
+        id = sharedPreferences.getString(ID, "");
+        idUser = Integer.parseInt(id);
+        Log.i(TAG, "loadToken: " + token + id);
+    }
+
     private void deleteMakanan(){
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Culinary> call = jsonPlaceHolderAPI.deleteMakanan(iId);
+                getData();
+                loadToken();
+                Call<Culinary> call = jsonPlaceHolderAPI.deleteMakanan("Bearer "+ token, iId);
 
                 call.enqueue(new Callback<Culinary>() {
                     @Override

@@ -67,6 +67,7 @@ public class ScheduleParentAdapter extends RecyclerView.Adapter<ScheduleParentAd
                 Intent dirDetail = new Intent(v.getContext(), ScheduleChildView.class);
                 dirDetail.putExtra("id", data.get(p).scheduleParent.getIdScheParent());
                 dirDetail.putExtra("title", data.get(p).scheduleParent.getTitle());
+                dirDetail.putExtra("desc", data.get(p).getScheduleParent().getDescription());
                 v.getContext().startActivity(dirDetail);
             }
         });

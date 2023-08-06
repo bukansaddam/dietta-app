@@ -4,18 +4,18 @@ public class History {
 
     private int idHistory;
     private String title;
-    private String totaltime;
-    private int burncalories;
+    private String description;
+    private String date;
+    private int totalExcercise;
     private int idUser;
-    private int idScheduleHistory;
 
-    public History(int idHistory, String title, String totaltime, int burncalories, int idUser, int idScheduleHistory) {
+    public History(int idHistory, String title, String description, String date, int totalExcercise, int idUser) {
         this.idHistory = idHistory;
         this.title = title;
-        this.totaltime = totaltime;
-        this.burncalories = burncalories;
+        this.description = description;
+        this.date = date;
+        this.totalExcercise = totalExcercise;
         this.idUser = idUser;
-        this.idScheduleHistory = idScheduleHistory;
     }
 
     public int getIdHistory() {
@@ -34,20 +34,28 @@ public class History {
         this.title = title;
     }
 
-    public String getTotaltime() {
-        return totaltime;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTotaltime(String totaltime) {
-        this.totaltime = totaltime;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getBurncalories() {
-        return burncalories;
+    public String getDate() {
+        return date;
     }
 
-    public void setBurncalories(int burncalories) {
-        this.burncalories = burncalories;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getTotalExcercise() {
+        return totalExcercise;
+    }
+
+    public void setTotalExcercise(int totalExcercise) {
+        this.totalExcercise = totalExcercise;
     }
 
     public int getIdUser() {
@@ -56,13 +64,5 @@ public class History {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
-    }
-
-    public int getIdScheduleHistory() {
-        return idScheduleHistory;
-    }
-
-    public void setIdScheduleHistory(int idScheduleHistory) {
-        this.idScheduleHistory = idScheduleHistory;
     }
 }

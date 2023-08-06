@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.sugadev.dietta.Admin.Culinary.View.KelMakanan;
 import com.sugadev.dietta.Admin.Video.View.KelVideo;
 import com.sugadev.dietta.LoginView;

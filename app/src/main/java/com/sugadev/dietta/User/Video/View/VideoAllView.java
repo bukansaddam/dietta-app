@@ -83,7 +83,7 @@ public class VideoAllView extends AppCompatActivity {
 
         loadToken();
 
-        Call<List<Video>> call = jsonPlaceHolderAPI.getVideo();
+        Call<List<Video>> call = jsonPlaceHolderAPI.getVideo("Bearer " + token);
 
         call.enqueue(new Callback<List<Video>>() {
             @Override

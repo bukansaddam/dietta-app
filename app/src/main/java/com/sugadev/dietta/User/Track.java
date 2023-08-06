@@ -5,12 +5,18 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,8 +25,12 @@ import com.sugadev.dietta.API.BaseUrlConfig;
 import com.sugadev.dietta.API.JsonPlaceHolderAPI;
 import com.sugadev.dietta.R;
 import com.sugadev.dietta.User.History.Model.History;
+import com.sugadev.dietta.User.Schedule.View.ScheduleChildView;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -30,6 +40,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Track extends Fragment {
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TOKEN = "token";
+    public static final String ID = "idUser";
+    private String token, id;
+    private int idUser;
 
     View view;
 
@@ -42,6 +58,7 @@ public class Track extends Fragment {
     double kaloriBurn;
 
     ImageView start, pause, stop, start2, stop2;
+    EditText judul, desc;
     LinearLayoutCompat layout, layout2;
     Retrofit retrofit;
     JsonPlaceHolderAPI jsonPlaceHolderAPI;
@@ -110,9 +127,38 @@ public class Track extends Fragment {
                 seconds = 0;
                 layout2.setVisibility(View.GONE);
                 start.setVisibility(View.VISIBLE);
-//                addDataHistory();
+                showCustomDialog();
             }
         });
+    }
+
+    private void showCustomDialog() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        judul = dialog.findViewById(R.id.etcdJudul);
+        desc = dialog.findViewById(R.id.etdcDesc);
+        Button btnSubmit = dialog.findViewById(R.id.btnSubmit);
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addHistory();
+                dialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
     
     private void addDataHistory(){
@@ -127,27 +173,27 @@ public class Track extends Fragment {
 
         int totalKalori = Integer.parseInt(df.format(kaloriBurn));
 
-        History history = new History(0, "Track", time, totalKalori, 2, 7);
-        
-        Call<History> call = jsonPlaceHolderAPI.addHistory(history);
-
-        call.enqueue(new Callback<History>() {
-            @Override
-            public void onResponse(Call<History> call, Response<History> response) {
-                if (!response.isSuccessful()){
-                    Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
-                    Log.i(TAG, "message : " + response.message());
-                    return;
-                }
-
-                Toast.makeText(getContext(), "Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<History> call, Throwable t) {
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
+//        History history = new History();
+//
+//        Call<History> call = jsonPlaceHolderAPI.addHistory(history);
+//
+//        call.enqueue(new Callback<History>() {
+//            @Override
+//            public void onResponse(Call<History> call, Response<History> response) {
+//                if (!response.isSuccessful()){
+//                    Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
+//                    Log.i(TAG, "message : " + response.message());
+//                    return;
+//                }
+//
+//                Toast.makeText(getContext(), "Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<History> call, Throwable t) {
+//                Log.e(TAG, "onFailure: ", t);
+//            }
+//        });
     }
 
     private void pause(){
@@ -219,8 +265,7 @@ public class Track extends Fragment {
         seconds = 0;
     }
 
-    private void runTimer()
-    {
+    private void runTimer(){
 
         final TextView timeView = view.findViewById(R.id.tvWaktu);
 
@@ -257,6 +302,48 @@ public class Track extends Fragment {
                 }
 
                 handler.postDelayed(this, 1000);
+            }
+        });
+    }
+
+    private void loadToken(){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(TOKEN, "");
+        id = sharedPreferences.getString(ID, "");
+        idUser = Integer.parseInt(id);
+        Log.i(TAG, "loadToken: " + token + id);
+    }
+
+    private void addHistory() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrlConfig.BASE_URL_HISTORY)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        loadToken();
+
+        Date time = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyy", Locale.getDefault());
+        String currtime = df.format(time);
+
+        History history = new History(0, judul.getText().toString(), desc.getText().toString(), currtime, 0, idUser);
+
+        jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
+        Call<History> call = jsonPlaceHolderAPI.addHistory("Bearer " + token, history);
+
+        call.enqueue(new Callback<History>() {
+            @Override
+            public void onResponse(Call<History> call, Response<History> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+
+                Toast.makeText(getContext(), "Berhasil Ditambahkan ke History", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<History> call, Throwable t) {
+
             }
         });
     }

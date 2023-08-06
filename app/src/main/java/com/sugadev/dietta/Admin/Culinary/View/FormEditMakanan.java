@@ -1,7 +1,12 @@
 package com.sugadev.dietta.Admin.Culinary.View;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +25,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FormEditMakanan extends AppCompatActivity {
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TOKEN = "token";
+    public static final String ID = "idUser";
+    private String token, id;
+    private int idUser;
 
     EditText etUrl, etTitle, etDesc, etLemak, etKarbo, etProtein, etKalori;
     String url, title, desc;
@@ -83,6 +94,14 @@ public class FormEditMakanan extends AppCompatActivity {
         etKalori = findViewById(R.id.etKalori);
     }
 
+    private void loadToken(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(TOKEN, "");
+        id = sharedPreferences.getString(ID, "");
+        idUser = Integer.parseInt(id);
+        Log.i(TAG, "loadToken: " + token + id);
+    }
+
     public void editMakanan(View view) {
         url = etUrl.getText().toString();
         title = etTitle.getText().toString();
@@ -94,7 +113,9 @@ public class FormEditMakanan extends AppCompatActivity {
 
         Culinary culinary = new Culinary(0, title, kalori, lemak, karbo, protein, desc, url);
 
-        Call<Culinary> call = jsonPlaceHolderAPI.updateMakanan(iId,culinary);
+        loadToken();
+
+        Call<Culinary> call = jsonPlaceHolderAPI.updateMakanan("Bearer " + token, iId,culinary);
 
         call.enqueue(new Callback<Culinary>() {
             @Override
