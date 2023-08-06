@@ -30,18 +30,19 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-//        loadToken();
+        Log.i(TAG, "loadToken: " + token + id);
+        loadToken();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if (token.equals("")) {
+                if (!token.equals("") && !id.equals("")) {
+                    Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(dirHome);
+                }else {
                     Intent dirLogin = new Intent(getApplicationContext(), LoginView.class);
                     startActivity(dirLogin);
-//                }else {
-//                    Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
-//                    startActivity(dirHome);
-//                }
+                }
             }
         }, time);
     }
@@ -50,7 +51,6 @@ public class SplashScreen extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(TOKEN, "");
         id = sharedPreferences.getString(ID, "");
-        idUser = Integer.parseInt(id);
         Log.i(TAG, "loadToken: " + token + id);
     }
 }

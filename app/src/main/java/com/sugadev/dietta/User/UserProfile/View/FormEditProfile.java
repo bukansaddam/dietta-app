@@ -3,6 +3,7 @@ package com.sugadev.dietta.User.UserProfile.View;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ public class FormEditProfile extends AppCompatActivity {
 
     EditText etName, etEmail, etUsername, etTinggi, etBerat, etPassword, etNotelp;
     Button btnSubmit;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,5 +167,16 @@ public class FormEditProfile extends AppCompatActivity {
         etPassword = findViewById(R.id.etFormPassword);
         etNotelp = findViewById(R.id.etFormNoTelp);
         btnSubmit = findViewById(R.id.btnFormSubmit);
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Edit Profil");
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

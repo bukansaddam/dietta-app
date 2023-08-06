@@ -101,7 +101,12 @@ public class Profile extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
 
+                editor.remove(TOKEN);
+                editor.remove(ID);
+                editor.apply();
                 Intent dirLogin = new Intent(getApplicationContext(), LoginView.class);
                 startActivity(dirLogin);
             }
