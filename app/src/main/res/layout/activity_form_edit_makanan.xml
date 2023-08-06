@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Admin.Culinary.FormEditMakanan">
+    tools:context=".Admin.Culinary.View.FormEditMakanan">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

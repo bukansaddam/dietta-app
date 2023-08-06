@@ -1,22 +1,33 @@
 package com.sugadev.dietta.User;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sugadev.dietta.API.BaseUrlConfig;
+import com.sugadev.dietta.API.JsonPlaceHolderAPI;
 import com.sugadev.dietta.R;
+import com.sugadev.dietta.User.History.Model.History;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Track extends Fragment {
 
@@ -27,9 +38,13 @@ public class Track extends Fragment {
     private boolean running;
 
     private boolean wasRunning;
+    String time;
+    double kaloriBurn;
 
     ImageView start, pause, stop, start2, stop2;
     LinearLayoutCompat layout, layout2;
+    Retrofit retrofit;
+    JsonPlaceHolderAPI jsonPlaceHolderAPI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,6 +110,42 @@ public class Track extends Fragment {
                 seconds = 0;
                 layout2.setVisibility(View.GONE);
                 start.setVisibility(View.VISIBLE);
+//                addDataHistory();
+            }
+        });
+    }
+    
+    private void addDataHistory(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrlConfig.BASE_URL_HISTORY)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        int totalKalori = Integer.parseInt(df.format(kaloriBurn));
+
+        History history = new History(0, "Track", time, totalKalori, 2, 7);
+        
+        Call<History> call = jsonPlaceHolderAPI.addHistory(history);
+
+        call.enqueue(new Callback<History>() {
+            @Override
+            public void onResponse(Call<History> call, Response<History> response) {
+                if (!response.isSuccessful()){
+                    Toast.makeText(getContext(), "Code : " + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "message : " + response.message());
+                    return;
+                }
+
+                Toast.makeText(getContext(), "Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<History> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
             }
         });
     }
@@ -118,6 +169,7 @@ public class Track extends Fragment {
                 seconds = 0;
                 layout.setVisibility(View.GONE);
                 start.setVisibility(View.VISIBLE);
+//                addDataHistory();
             }
         });
     }
@@ -186,9 +238,9 @@ public class Track extends Fragment {
                 int minutes = (seconds % 3600) / 60;
                 int secs = seconds % 60;
 
-                String time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
+                time = String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs);
 
-                double kaloriBurn = 0.10 - 0.20 / seconds;
+                kaloriBurn = 0.10 - 0.20 / secs;
 
                 DecimalFormat df = new DecimalFormat("#.##");
                 timeView.setText(time);

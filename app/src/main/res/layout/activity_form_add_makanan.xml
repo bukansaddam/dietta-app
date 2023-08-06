@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".Admin.Culinary.FormAddMakanan">
+    tools:context=".Admin.Culinary.View.FormAddMakanan">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

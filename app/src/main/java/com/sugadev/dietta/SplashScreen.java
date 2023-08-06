@@ -1,15 +1,26 @@
 package com.sugadev.dietta;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreen extends AppCompatActivity {
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TOKEN = "token";
+    public static final String ID = "idUser";
+    private String token, id;
+    private int idUser;
 
 
     int time = 3000;
@@ -19,12 +30,27 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+//        loadToken();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent dirLogin = new Intent(getApplicationContext(), Login.class);
-                startActivity(dirLogin);
+//                if (token.equals("")) {
+                    Intent dirLogin = new Intent(getApplicationContext(), LoginView.class);
+                    startActivity(dirLogin);
+//                }else {
+//                    Intent dirHome = new Intent(getApplicationContext(), MainActivity.class);
+//                    startActivity(dirHome);
+//                }
             }
-        }, 3000);
+        }, time);
+    }
+
+    private void loadToken(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(TOKEN, "");
+        id = sharedPreferences.getString(ID, "");
+        idUser = Integer.parseInt(id);
+        Log.i(TAG, "loadToken: " + token + id);
     }
 }

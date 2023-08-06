@@ -8,7 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -101,15 +101,14 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/calories" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_straight_24" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
-                                android:text="Kalori"
+                                android:text="Tinggi"
                                 android:textColor="@color/grey" />
 
                         </LinearLayout>
@@ -120,7 +119,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/phKalori"
+                                android:id="@+id/phTinggi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="200"
@@ -132,7 +131,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
-                                android:text="kcal"
+                                android:text="cm"
                                 android:textColor="@color/grey"
                                 android:textSize="16sp" />
 
@@ -145,7 +144,7 @@
                 <LinearLayout
                     android:id="@+id/relativeLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/bg_home"
                     android:orientation="vertical"
@@ -291,17 +290,17 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="Kegiatan Anda"
-                        android:textColor="@color/white" />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="24dp"-->
+<!--                        android:text="Kegiatan Anda"-->
+<!--                        android:textColor="@color/white" />-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp" />
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="16dp" />-->
 
                     <TextView
                         android:layout_width="wrap_content"

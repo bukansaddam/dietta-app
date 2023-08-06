@@ -1,6 +1,5 @@
 package com.sugadev.dietta.User.Video.Adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.sugadev.dietta.R;
 import com.sugadev.dietta.User.Video.Model.Video;
-import com.sugadev.dietta.User.Video.VideoDetail;
+import com.sugadev.dietta.User.Video.View.VideoDetailView;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> 
         holder.cardVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dirDetail = new Intent(v.getContext(), VideoDetail.class);
+                Intent dirDetail = new Intent(v.getContext(), VideoDetailView.class);
                 dirDetail.putExtra("video", data.get(p).getUrl());
                 dirDetail.putExtra("title", data.get(p).getTitle());
                 dirDetail.putExtra("desc", data.get(p).getDescription());
@@ -60,10 +59,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> 
     }
 
 
-    public class YogaHolder extends RecyclerView.ViewHolder {
+    public static class YogaHolder extends RecyclerView.ViewHolder {
 
         TextView judul,desc;
-        ImageView thumbnail;
+        ImageView thumbnail, btnDelete;
         CardView cardVideo;
 
         public YogaHolder(@NonNull View itemView) {
@@ -73,6 +72,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.YogaHolder> 
             judul = itemView.findViewById(R.id.tvJudulVideo);
             desc = itemView.findViewById(R.id.tvDeskripsiVideo);
             cardVideo = itemView.findViewById(R.id.cardVideo);
+            btnDelete = itemView.findViewById(R.id.btnDelVideo);
         }
     }
 }

@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.sugadev.dietta.Admin.Culinary.KelMakanan;
-import com.sugadev.dietta.Admin.Video.KelVideo;
-import com.sugadev.dietta.Login;
+import com.sugadev.dietta.Admin.Culinary.View.KelMakanan;
+import com.sugadev.dietta.Admin.Video.View.KelVideo;
+import com.sugadev.dietta.LoginView;
 import com.sugadev.dietta.R;
 
 public class Dashboard extends AppCompatActivity {
@@ -19,14 +19,12 @@ public class Dashboard extends AppCompatActivity {
     TextView btnLogout;
     Button btnVideo, btnMakanan;
 
-    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        mAuth = FirebaseAuth.getInstance();
         btnLogout = findViewById(R.id.btndLogout);
         btnVideo = findViewById(R.id.btnKelVideo);
         btnMakanan = findViewById(R.id.btnKelMakanan);
@@ -34,8 +32,7 @@ public class Dashboard extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
-                Intent dirLogin = new Intent(getApplicationContext(), Login.class);
+                Intent dirLogin = new Intent(getApplicationContext(), LoginView.class);
                 startActivity(dirLogin);
                 finish();
             }

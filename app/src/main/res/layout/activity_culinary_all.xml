@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".User.Culinary.CulinaryAll">
+    tools:context=".User.Culinary.View.CulinaryAllView">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

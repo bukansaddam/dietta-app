@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".User.Video.Pilates">
+    tools:context=".User.Video.View.Pilates">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

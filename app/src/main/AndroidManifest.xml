@@ -8,6 +8,7 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,73 +18,76 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".User.Schedule.ScheduleDetail"
+            android:name=".User.Video.View.VideoAllView"
             android:exported="false" />
         <activity
-            android:name=".User.Schedule.ScheduleView"
+            android:name=".User.UserProfile.View.FormEditProfile"
             android:exported="false" />
         <activity
-            android:name=".User.Culinary.CulinaryAll"
+            android:name=".User.Schedule.View.ScheduleChildView"
             android:exported="false" />
         <activity
-            android:name=".User.Video.VideoDetail"
+            android:name=".User.Schedule.View.ScheduleParentView"
             android:exported="false" />
         <activity
-            android:name=".User.Culinary.CulinaryDetail"
+            android:name=".User.Culinary.View.CulinaryAllView"
             android:exported="false" />
         <activity
-            android:name=".User.Video.Cardio"
+            android:name=".User.Video.View.VideoDetailView"
             android:exported="false" />
         <activity
-            android:name=".User.Video.Pilates"
+            android:name=".User.Culinary.View.CulinaryDetailView"
             android:exported="false" />
         <activity
-            android:name=".User.Video.Gym"
+            android:name=".User.Video.View.Cardio"
             android:exported="false" />
         <activity
-            android:name=".User.Profile"
+            android:name=".User.Video.View.Pilates"
+            android:exported="false" />
+        <activity
+            android:name=".User.Video.View.Gym"
+            android:exported="false" />
+        <activity
+            android:name=".User.UserProfile.View.Profile"
             android:exported="false" />
         <activity
             android:name=".User.Track"
             android:exported="false" />
         <activity
-            android:name=".User.History"
+            android:name=".User.History.View.HistoryView"
             android:exported="false" />
         <activity
-            android:name=".User.Diary.Catatan"
+            android:name=".User.Diary.View.DiaryView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".User.Video.Yoga"
+            android:name=".User.Video.View.Yoga"
             android:exported="false" />
         <activity
-            android:name=".User.User$VideoUserActivity"
+            android:name=".Admin.Culinary.View.FormAddMakanan"
             android:exported="false" />
         <activity
-            android:name=".Admin.Culinary.FormAddMakanan"
+            android:name=".Admin.Culinary.View.CulinaryDetailAdmin"
             android:exported="false" />
         <activity
-            android:name=".Admin.Culinary.CulinaryDetailAdmin"
+            android:name=".Admin.Culinary.View.KelMakanan"
             android:exported="false" />
         <activity
-            android:name=".Admin.Culinary.KelMakanan"
+            android:name=".Admin.Culinary.View.FormEditMakanan"
             android:exported="false" />
         <activity
-            android:name=".Admin.Culinary.FormEditMakanan"
+            android:name=".Admin.Video.View.FormAddVideo"
             android:exported="false" />
         <activity
-            android:name=".Admin.Video.FormAddVideo"
+            android:name=".Admin.Video.View.FormEditVideo"
             android:exported="false" />
         <activity
-            android:name=".Admin.Video.FormEditVideo"
+            android:name=".Admin.Video.View.KelVideo"
             android:exported="false" />
         <activity
-            android:name=".Admin.Video.KelVideo"
-            android:exported="false" />
-        <activity
-            android:name=".Admin.Video.VideoDetailAdmin"
+            android:name=".Admin.Video.View.VideoDetailAdmin"
             android:exported="false" />
         <activity
             android:name=".Admin.Dashboard"
@@ -98,13 +102,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
-            android:exported="false" />
+            android:name=".RegisterView"
+            android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".LoginView"
             android:exported="true" />
         <activity
             android:name=".User.Homepage"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
             android:exported="false" />
     </application>
 
